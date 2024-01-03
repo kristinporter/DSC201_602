@@ -1,0 +1,76 @@
+---
+title: "R Notebook #1: Introduction to R Notebooks and R Data Types and Structures"
+output: pdf_document
+---
+
+# Introduction to R Markdown Notebooks
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code.
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*.
+
+```{r}
+2+2
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you "knit" the notebook, a pdf file containing the code and output will be saved and displayed.
+
+More information can be added on the first line of code chunks. For example, in "`{r Chunk1}` we are naming the code chunk `Chunk1`. However, the point is to use a descriptive label. Options can also be added to the first line. For example "`{r Chunk1 echo=FALSE}` tells R Studio to not print the code chunk when the notebook is knit. The chunk will be executed, but the code itself won't be displayed in the final document. Only the results or output of the code (like plots or printed values) will be shown.
+
+Also, within a code chunk, text that follows "\#" is referred to as a "comment". Other terminology, is that code following a "\#" is commented out. Commented out lines are not run. They are ignored. You can comment out text to add notes within a code chunk. Also, if you want to a line of code to not be run but you do not want to delete it, you can comment it out. Here's an example.
+
+```{r commentExample echo=FALSE}
+# This is a comment. The following line will be run when you run the chunk. 
+2+2
+
+# The following line will not be run because it is commented out.
+# 2*2  
+```
+
+In R Studio, the "Source" tab shows markdown language. Markdown is a lightweight markup language with plain-text formatting syntax that is designed to be converted to HTML, PDF and other formats. It is very popular among R users.
+
+The "Visual" tab feels more like a traditional word processor. The Visual tab can be more user-friendly, but it can also be less flexible.
+
+This [R Markdown Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) can help you get acquainted with Markdown.
+
+# R Objects
+
+In R, the term "object" refers to anything that can be assigned to a variable. This encompasses a wide range of data structures, from simple types like numbers and strings, to more complex structures like vectors, lists, matrices, data frames, and functions, which we will learn about.
+
+In R, everything you manipulate is considered an object. This includes not only data structures like vectors or data frames but also the outputs of functions and the functions themselves. Some key points about objects:
+
+1.  **Attributes**: Objects in R can have attributes. These are "metadata" about the object, like its dimensions (for matrices), names (for elements in a vector or columns in a data frame), or class (which defines how the object should behave in different contexts).
+
+2.  **Types and Structures**: The type of an object refers to its basic data type (numeric, integer, character, etc.), while the structure refers to how these types are organized (like vectors, lists, matrices). We turn to types and structures below.
+
+3.  **Classes and Methods**: In object-oriented programming within R, objects can have specific classes, and there are methods designed to work with objects of these classes. For instance, the **`print(x)`** function behaves differently for object `x` depending on whether `x` is a numeric vector, a data frame, or a model object.
+
+4.  **Environment Objects**: Recall you can see the objects in memory by clicking on the "Environment" tab in the upper right quadrant of R Studio.
+
+# R Data Types
+
+1.  **Numeric**: This is the default data type for numbers in R. For example, **`2`**, **`6.7`**, etc., are considered numeric.
+
+    ```{r NumericObject}
+    # x is an object that we assign the numeric value of 2
+    # note "<-" assigns information to objects
+    x <- 2
+
+    # we can print the object x
+    print(x)
+
+    # we can also do this just by typing "x"
+    x
+
+    # we can also add more information to make our output nicer
+    print(paste("x is equal to",x))
+
+    # we can check the type of the object x as follows
+    class(x)
+    ```
+
+2.  **Character**: This type includes strings of text. Any data enclosed in single or double quotes is considered a character type, e.g., **`"Blue"`**.
+
+3.  **Logical**: This data type is used for boolean values, which can either be **`TRUE`** or **`FALSE`**.
