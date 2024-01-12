@@ -9,7 +9,7 @@ This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute
 
 Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*.
 
-```{r}
+```{r testChunk}
 2+2
 ```
 
@@ -17,17 +17,21 @@ Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by press
 
 When you "knit" the notebook, a pdf file containing the code and output will be saved and displayed.
 
-More information can be added on the first line of code chunks. For example, in "`{r Chunk1}` we are naming the code chunk `Chunk1`. However, the point is to use a descriptive label. Options can also be added to the first line. For example "`{r Chunk1 echo=FALSE}` tells R Studio to not print the code chunk when the notebook is knit. The chunk will be executed, but the code itself won't be displayed in the final document. Only the results or output of the code (like plots or printed values) will be shown.
+More information can be added on the first line of code chunks. For example, in "`{r testChunk}` we are naming the code chunk `testChunk`. The point is to use a descriptive label.
 
-Also, within a code chunk, text that follows "\#" is referred to as a "comment". Other terminology, is that code following a "\#" is commented out. Commented out lines are not run. They are ignored. You can comment out text to add notes within a code chunk. Also, if you want to a line of code to not be run but you do not want to delete it, you can comment it out. Here's an example.
+Options can also be added to the first line. For example "`{r testChunk echo=FALSE}` tells R Studio to not print the code chunk when the notebook is knit. The chunk will be executed, but the code itself won't be displayed in the final document. Only the results or output of the code (like plots or printed values) will be shown.
 
-```{r commentExample echo=FALSE}
+Also, within a code chunk, text that follows "\#" is referred to as a "comment". Other terminology, is that code following a "\#" is "commented out." Commented out lines are not run. They are ignored. You can comment out text to add notes within a code chunk. Also, if you want to a line of code to not be run (e.g. for testing an alternative) but you do not want to delete it, you can comment it out. Here's an example.
+
+```{r commentExample, echo=FALSE}
 # This is a comment. The following line will be run when you run the chunk. 
 2+2
 
 # The following line will not be run because it is commented out.
 # 2*2  
 ```
+
+Note that you can also click on the little wheel inside the code chunk. This provides a user-friendly way to specify information about the chunk. Unfortunately, it doesn't show the information you may already entered, but rather provides another way to enter it.
 
 In R Studio, the "Source" tab shows markdown language. Markdown is a lightweight markup language with plain-text formatting syntax that is designed to be converted to HTML, PDF and other formats. It is very popular among R users.
 
@@ -41,7 +45,7 @@ In R, the term "object" refers to anything that can be assigned to a variable. T
 
 In R, everything you manipulate is considered an object. This includes not only data structures like vectors or data frames but also the outputs of functions and the functions themselves. Some key points about objects:
 
-1.  **Attributes**: Objects in R can have attributes. These are "metadata" about the object, like its dimensions (for matrices), names (for elements in a vector or columns in a data frame), or class (which defines how the object should behave in different contexts).
+1.  **Attributes**: Objects in R can have attributes. These are "metadata" about the object, like its dimensions (for matrices), names (for elements in a vector or columns in a data frame), or class (which defines how the object should behave in different contexts). (Note, in some fields, columns of a data set may be called attributes, so this may be confusing. In this class, I will refer to columns typically as variables or measures.)
 
 2.  **Types and Structures**: The type of an object refers to its basic data type (numeric, integer, character, etc.), while the structure refers to how these types are organized (like vectors, lists, matrices). We turn to types and structures below.
 
@@ -51,26 +55,128 @@ In R, everything you manipulate is considered an object. This includes not only 
 
 # R Data Types
 
-1.  **Numeric**: This is the default data type for numbers in R. For example, **`2`**, **`6.7`**, etc., are considered numeric.
+1.  **Numeric**: This is the default data type for numbers in R. For example, **`2`** and **`6.7`** etc. are considered numeric.
 
-    ```{r NumericObject}
-    # x is an object that we assign the numeric value of 2
-    # note "<-" assigns information to objects
-    x <- 2
+```{r NumericObject}
+# x is an object that we assign the numeric value of 2
+# note "<-" assigns information to objects
+x <- 2
 
-    # we can print the object x
-    print(x)
+# we can print the object x
+print(x)
 
-    # we can also do this just by typing "x"
-    x
+# we can also print just by typing "x"
+x
 
-    # we can also add more information to make our output nicer
-    print(paste("x is equal to",x))
+# we can also add more information to make our output nicer
+print(paste("x is equal to",x))
 
-    # we can check the type of the object x as follows
-    class(x)
-    ```
+# we can check the type of the object x as follows
+class(x)
+```
 
 2.  **Character**: This type includes strings of text. Any data enclosed in single or double quotes is considered a character type, e.g., **`"Blue"`**.
 
-3.  **Logical**: This data type is used for boolean values, which can either be **`TRUE`** or **`FALSE`**.
+```{r CharacterObject}
+# city is an object that we assign the character value "Raleigh"
+# note that character values are in quotation marks
+city <- "Raleigh"
+
+print(city)
+
+# Here we can view the class of the object called city
+class(city)
+```
+
+3.  **Logical**: This data type is used for "boolean" values (or "dummy" variables), which can either be **`TRUE`** or **`FALSE`**.
+
+```{r LogicalObject}
+# student is an object that we assign the character value TRUE
+# note that logical data is either TRUE of FALSE (case sensitive)
+student <- TRUE
+
+print(student)
+
+# Here we can view the class of the object called city
+class(student)
+```
+
+# Notes about object names
+
+In the code chunks above, `x`, `city`, and `student` are all object. We simply assigned values to these objects. As we will see below, we can also assign bigger, more complex information to these objects. But first, let's review some rules and conventions for object names in R:
+
+1.  **Syntax Rules**: In R, valid object names must start with a letter, followed by a combination of letters, numbers, the period (`.`), and the underscore (`_`). They cannot start with a number or an underscore, nor can they contain special characters like `^`, `!`, `@`, `#`, `$`, `%`, `&`, `*`, `(`, `)`, `-`, `+`, `=`, `{`, `}`, `[`, `]`, `|`, `\`, `:`, `;`, `'`, `"`, `<`, `>`, `,`, `?`, `/`, or space.
+
+2.  **Reserved Words**: R has a set of reserved words that cannot be used as object names. These include function names, keywords, and other built-in identifiers like `if`, `else`, `repeat`, `while`, `function`, `for`, `in`, `next`, and `break`.
+
+3.  **Case Sensitivity**: R is case-sensitive, which means that `Object`, `object`, and `OBJECT` would be considered different objects.
+
+4.  **Conventions**: While not enforced by R syntax, there are naming conventions that many R programmers follow for readability and to avoid confusion, such as using `.` or `_` to separate words (e.g., `my.data` or `my_data`), and avoiding the use of periods at the end, as they are conventionally used for other purposes beyond the scope of this class.
+
+5.  **Assignment**: You can technically use almost any character in an object name if you use backticks, like `` `1` `` for an object name, but this is not recommended as it can make the code hard to read and maintain.
+
+6.  **Global Environment**: Object names in the global environment should not conflict with object names in attached packages. If a name conflict occurs, R will use the object from the most recently attached package or environment.
+
+In practice, it's best to follow the generally accepted coding standards and conventions to ensure that your code is clean, understandable, and doesn't clash with R's syntax or semantics.
+
+# R Data Structures
+
+Central to R's flexibility for data analysis are its diverse data structures, which enable users to handle and manipulate data in a variety of ways. Understanding the fundamental data structures in R is crucial for performing data operations efficiently and effectively. Here, we will introduce the primary data structures used in R:
+
+1.  **Vectors**: The simplest and most common data structure in R, vectors are one-dimensional arrays that hold elements of the same type. They can be of various types themselves, such as numeric, integer, complex, logical, character, or raw.
+
+```{r vectorEx}
+# The object my.numeric.vector is a numeric vector:
+my.vector <- c(1,2,3,4,5)
+
+# The object my.char.vector is a character vector:
+my.char.vector <- c("walk","bus","bike","drive")
+
+# The object my.logical.vector is a logical vector
+my.logical.vector <- c(TRUE,FALSE,TRUE)
+```
+
+2.  **Matrices**: A matrix is a two-dimensional data structure with rows and columns, where every element is of the **same data type**. It can be considered as a collection of vectors of equal length arranged in a rectangular layout. We will not use matrices much, if at all. They can be very limiting since all entries need to be the same data type.
+
+```{r matrixEx}
+# my.matrix is a numeric matrix, which I create by combining two vectors. 
+# Each vector is a column of the matrix. 
+# I combine the vectors using function cbind(). 
+a <- c(1,2,3)
+b <- c(4,5,6)
+my.matrix <- cbind(a,b)
+print(my.matrix)
+
+# We can look at the dimensions of the matrix with the function dim(). This will return the number of rows, followed by the number of columns. 
+dim(my.matrix)
+
+# We can zoom in on sub-parts of the matrix by putting square brackets[] after a matrix object name.
+# entries before the comma refer to rows
+my.matrix[1:2,] # the first two rows
+# entries after the comma refer the columns
+my.matrix[,1] # the first column
+# entries before and after column narrow into cells of the matrix
+my.matrix[1,1] # value in the first row and first column
+# In general the entries before or after the comma are numbers or vectors that correspond to single or groups of rows and columns. 
+```
+
+3.  **Data Frames**: Data frames are the most widely used data structure in R for data analysis. We will frequently use data frames in this class. A data frame is a two-dimensional table-like structure that can hold columns of different types (e.g., numeric, character, and logical). Each column in a data frame can be thought of as a vector, and the length of each vector (number of rows) must be the same across all columns.
+
+```{r dataframes}
+# Here, first I am loading an R "package" called "datasets." R packages are the building blocks on top of "base R." They are contributed by wide-ranging organizations and individuals. The datasets package includes many "built-in" datasets that you can use to test out and explore R. When you load the datasets package with "libary(datasets)" all of the datasets in the package become available. 
+library(datasets)
+
+# One of the datasets is called "mtcars". With class(mtcars), we see it is a data frame
+class(mtcars)
+```
+```{r mtcars}
+# Let's look at the dimensions of the data.frame, just as we did above for a matrix
+dim(mtcars)
+
+# Let's look at the first 6 rows of the data frame mtcars, by using the function head()
+head(mtcars)
+```
+
+Notice that the car types do not have a column name. They technically are not a column in the data frame. Instead, the rows have names, which are the car types. 
+
+There are many more data structures in R. You will likely be introduced to more as the class progresses. 
