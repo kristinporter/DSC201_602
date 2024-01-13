@@ -75,7 +75,7 @@ print(paste("x is equal to",x))
 class(x)
 ```
 
-2.  **Character**: This type includes strings of text. Any data enclosed in single or double quotes is considered a character type, e.g., **`"Blue"`**.
+2.  **Character**: This type includes strings of text. Any data enclosed in single or double quotes is considered a character type, e.g., "Raleigh".
 
 ```{r CharacterObject}
 # city is an object that we assign the character value "Raleigh"
@@ -163,7 +163,7 @@ my.matrix[1,1] # value in the first row and first column
 3.  **Data Frames**: Data frames are the most widely used data structure in R for data analysis. We will frequently use data frames in this class. A data frame is a two-dimensional table-like structure that can hold columns of different types (e.g., numeric, character, and logical). Each column in a data frame can be thought of as a vector, and the length of each vector (number of rows) must be the same across all columns.
 
 ```{r dataframes}
-# Here, first I am loading an R "package" called "datasets." R packages are the building blocks on top of "base R." They are contributed by wide-ranging organizations and individuals. The datasets package includes many "built-in" datasets that you can use to test out and explore R. When you load the datasets package with "libary(datasets)" all of the datasets in the package become available. 
+# Here, first I am loading an R "package" called "datasets." R packages are the building blocks on top of "base R." They are contributed by wide-ranging organizations and individuals. The datasets package includes many "built-in" datasets that you can use to explore R. When you load the package with "libary(datasets)" all of the datasets in the package become available. 
 library(datasets)
 
 # One of the datasets is called "mtcars". With class(mtcars), we see it is a data frame
@@ -177,6 +177,14 @@ dim(mtcars)
 head(mtcars)
 ```
 
-Notice that the car types do not have a column name. They technically are not a column in the data frame. Instead, the rows have names, which are the car types. 
+Notice that each column has a name. This is the variable name for the data in the column. You can see that the car types do not have a column name. This is because the car names are not actually a column in the data frame. Instead, the rows also have names, which are the car types. 
+
+```{r rowNames}
+# here we can check the column names to see the variables in the data frame
+colnames(mtcars)
+
+# here we can see the row names
+rownames(mtcars)
+```
 
 There are many more data structures in R. You will likely be introduced to more as the class progresses. 
