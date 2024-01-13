@@ -1,0 +1,12 @@
+---
+title: "Coding Assignment 2"
+output: pdf_document
+---
+
+First, read in the dataset. 
+
+```{r}
+plot(cars)
+```
+
+
