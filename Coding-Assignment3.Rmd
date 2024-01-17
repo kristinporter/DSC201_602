@@ -1,0 +1,15 @@
+---
+title: "Coding Assignment 2"
+output: pdf_document
+---
+
+First, read in the dataset and assign it to the object `sleep.data`.
+
+```{r readData}
+sleep.data <- load("data/SleepStudy.Rda")
+```
+
+In the following chunk, write a line of code that displays the first 6 rows of sleep.data.
+
+```{r displayTop}
+

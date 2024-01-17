@@ -3,13 +3,45 @@ title: "Coding Assignment 2"
 output: pdf_document
 ---
 
-First, read in the dataset and assign it to the object `sleep.data`.
+*Objectives of this assignment:*
 
-```{r readData}
-sleep.data <- load("data/SleepStudy.Rda")
+-   Gain familiarity in working in R notebooks.
+
+-   Review some beginning information about data types and data objects.
+
+-   Gain introduction to errors and use knowledge to diagnose problem.
+
+\ 
+*Some notes about running chunks one by one:*
+-   To run a single chunk, you can click on the green triangle pointing right within the chunk. 
+-   To run all chunks above a given chunk, you press the gray triangle pointing down with the green dash underneath. 
+-   Notice that at the top of the pane, in the right corner, there is also a drop down menu for different run options. It also shows keyboard shortcuts. Play around with these different options.
+-   When you have tested and are finished with all text and all code chunks, click "Knit" at the top of the pane. This will run all chunks and "compile" a PDF that includes text, code chunks and output. 
+
+\
+
+The following code chunk assigns a vector to the object `run.times1`. Note that `run.times1` holds data on how long a person ran each of seven days in a week.
+
+```{r hw2chunk1}
+run.times1 <- c(47.25,46.50,50.25,44.75,45.00,31.50,48.50)
 ```
 
-In the following chunk, write a line of code that displays the first 6 rows of sleep.data.
+What is the "data type" of `run.times1`?
 
-```{r displayTop}
+[TYPE YOUR ANSWER HERE, 1 PT]
 
+What is the "data structure" of `run.times1`?
+
+[TYPE YOUR ANSWER HERE, 1 PT]
+
+In the following code chunk, write a line of code that will display the information in the object `run.times1`?
+
+```{r hw2chunk2}
+run.times1
+```
+
+```{r hw2chunk3}
+run.times2 <- c(46.50,50.25,0,30.75,27.00,48.25,56.00)
+run.times.by.week <- cbind(run.times1,run.times2)
+run.times.by.week
+```

@@ -127,7 +127,7 @@ Central to R's flexibility for data analysis are its diverse data structures, wh
 
 ```{r vectorEx}
 # The object my.numeric.vector is a numeric vector:
-my.vector <- c(1,2,3,4,5)
+my.vector <- c(1,2,3,4,5) # note that c() combines elements into a vector
 
 # The object my.char.vector is a character vector:
 my.char.vector <- c("walk","bus","bike","drive")
@@ -169,6 +169,7 @@ library(datasets)
 # One of the datasets is called "mtcars". With class(mtcars), we see it is a data frame
 class(mtcars)
 ```
+
 ```{r mtcars}
 # Let's look at the dimensions of the data.frame, just as we did above for a matrix
 dim(mtcars)
@@ -177,7 +178,7 @@ dim(mtcars)
 head(mtcars)
 ```
 
-Notice that each column has a name. This is the variable name for the data in the column. You can see that the car types do not have a column name. This is because the car names are not actually a column in the data frame. Instead, the rows also have names, which are the car types. 
+Notice that each column has a name. This is the variable name for the data in the column. You can see that the car types do not have a column name. This is because the car names are not actually a column in the data frame. Instead, the rows also have names, which are the car types.
 
 ```{r rowNames}
 # here we can check the column names to see the variables in the data frame
@@ -187,4 +188,4 @@ colnames(mtcars)
 rownames(mtcars)
 ```
 
-There are many more data structures in R. You will likely be introduced to more as the class progresses. 
+There are many more data structures in R. You will likely be introduced to more as the class progresses.
