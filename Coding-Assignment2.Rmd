@@ -3,22 +3,27 @@ title: "Coding Assignment 2"
 output: pdf_document
 ---
 
-*Objectives of this assignment:*
+#### Objectives of this assignment
 
 -   Gain familiarity in working in R notebooks.
 
--   Review some beginning information about data types and data objects.
+-   Review introductory material about R data types and R data objects.
 
--   Gain introduction to errors and use knowledge to diagnose problem.
+-   Gain introduction to errors and use knowledge from class to diagnose problem.
 
-\ 
-*Some notes about running chunks one by one:*
--   To run a single chunk, you can click on the green triangle pointing right within the chunk. 
--   To run all chunks above a given chunk, you press the gray triangle pointing down with the green dash underneath. 
+ 
+
+#### Some notes about running code chunks
+
+-   To run a single chunk, you can click on the green triangle pointing right within the chunk.
+
+-   To run all chunks above a given chunk, you press the gray triangle pointing down with the green dash underneath.
+
 -   Notice that at the top of the pane, in the right corner, there is also a drop down menu for different run options. It also shows keyboard shortcuts. Play around with these different options.
--   When you have tested and are finished with all text and all code chunks, click "Knit" at the top of the pane. This will run all chunks and "compile" a PDF that includes text, code chunks and output. 
 
-\
+-   When you have tested and are finished with all text and all code chunks, click "Knit" at the top of the pane. This will run all chunks and "compile" a PDF that includes text, code chunks and output.
+
+####  Assessment
 
 The following code chunk assigns a vector to the object `run.times1`. Note that `run.times1` holds data on how long a person ran each of seven days in a week.
 
@@ -45,11 +50,12 @@ run.times2 <- c(46.50,50.25,0,30.75,27.00,48.25,56.00)
 run.times.by.week <- cbind(run.times1,run.times2)
 run.times.by.week
 ```
-The object `run.times.by.week` shows data collected on someone's run times over two weeks. What are two observations that tell a story about the data? 
+
+The object `run.times.by.week` shows data collected on someone's run times over two weeks. What are two observations that tell a story about the data?
 
 [ENTER YOUR ANSWER HERE, 1 POINT FOR COMPLETION, NO WRONG ANSWERS]
 
-What are two analyses you do with this run time data when you know how to do it in R? 
+What are two analyses you do with this run time data when you know how to do it in R?
 
 [ENTER YOUR ANSWER HERE, 1 POINT FOR COMPLETION, NO WRONG ANSWERS]
 
@@ -59,7 +65,7 @@ In the following code chunk, write a line of code to show the number of rows and
 
 ```
 
-Note that when we use double equal signs (`==`) in R, we are evaluating whether or not the value to the left of `==` is equivalent to the value to the right. For example: 
+Note that when we use double equal signs (`==`) in R, we are evaluating whether or not the value to the left of `==` is equivalent to the value to the right. For example:
 
 ```{r hw2chunk5}
 x <- 4 
@@ -72,32 +78,31 @@ In the next code chunk, write 2 lines of code to (1) print `y`; and (2) show the
 
 ```
 
-What is another word for this data type? 
+What is another word for the data type of `y`? That is, what is a word that is not used by R but that describes the type of data held by `y`?
 
 [ENTER YOUR ANSWER HERE, 1 POINT]
 
-When you run the next code chunk, you will get an error. 
+When you run the next code chunk, you will get an error.
 
 ```{r hw2chunk7}
 my.object <- dog
 ```
 
-Explain the error. 
+Explain the error.
 
 [ENTER ANSWER HERE, 1 POINT]
 
-When you run the next code chunk, you will get an error. 
+When you run the next code chunk, you will get an error.
 
 ```{r hw2chunk8}
 my.vector <- (1,2,3)
 ```
 
-Explain the error. 
+Explain the error.
 
 [ENTER ANSWER HERE, 1 POINT]
 
-
-EXTRA CREDIT #1 (1 POINT): 
+EXTRA CREDIT #1 (1 POINT):
 
 ```{r hw2chunk8}
 my.vector <- c(4,3,"tree")
