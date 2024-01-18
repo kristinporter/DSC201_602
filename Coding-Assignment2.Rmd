@@ -28,16 +28,16 @@ run.times1 <- c(47.25,46.50,50.25,44.75,45.00,31.50,48.50)
 
 What is the "data type" of `run.times1`?
 
-[TYPE YOUR ANSWER HERE, 1 PT]
+[TYPE YOUR ANSWER HERE, 1 POINT]
 
 What is the "data structure" of `run.times1`?
 
-[TYPE YOUR ANSWER HERE, 1 PT]
+[TYPE YOUR ANSWER HERE, 1 POINT]
 
-In the following code chunk, write a line of code that will display the information in the object `run.times1`?
+In the following code chunk, write a line of code that will display the information in the object `run.times1`? [1 POINT]
 
 ```{r hw2chunk2}
-run.times1
+
 ```
 
 ```{r hw2chunk3}
@@ -45,3 +45,68 @@ run.times2 <- c(46.50,50.25,0,30.75,27.00,48.25,56.00)
 run.times.by.week <- cbind(run.times1,run.times2)
 run.times.by.week
 ```
+The object `run.times.by.week` shows data collected on someone's run times over two weeks. What are two observations that tell a story about the data? 
+
+[ENTER YOUR ANSWER HERE, 1 POINT FOR COMPLETION, NO WRONG ANSWERS]
+
+What are two analyses you do with this run time data when you know how to do it in R? 
+
+[ENTER YOUR ANSWER HERE, 1 POINT FOR COMPLETION, NO WRONG ANSWERS]
+
+In the following code chunk, write a line of code to show the number of rows and columns in the matrix `run.times.by.week`. Also, add a comment to the code chunk, saying whatever you think makes sense. [2 POINTS]
+
+```{r hw2chunk4}
+
+```
+
+Note that when we use double equal signs (`==`) in R, we are evaluating whether or not the value to the left of `==` is equivalent to the value to the right. For example: 
+
+```{r hw2chunk5}
+x <- 4 
+y <- x==4
+```
+
+In the next code chunk, write 2 lines of code to (1) print `y`; and (2) show the data type of `y`. [1 POINT]
+
+```{r hw2chunk6}
+
+```
+
+What is another word for this data type? 
+
+[ENTER YOUR ANSWER HERE, 1 POINT]
+
+When you run the next code chunk, you will get an error. 
+
+```{r hw2chunk7}
+my.object <- dog
+```
+
+Explain the error. 
+
+[ENTER ANSWER HERE, 1 POINT]
+
+When you run the next code chunk, you will get an error. 
+
+```{r hw2chunk8}
+my.vector <- (1,2,3)
+```
+
+Explain the error. 
+
+[ENTER ANSWER HERE, 1 POINT]
+
+
+EXTRA CREDIT #1 (1 POINT): 
+
+```{r hw2chunk8}
+my.vector <- c(4,3,"tree")
+my.vector
+```
+
+EXTRA CREDIT #2 (1 POINT):
+
+Something about [,]
+
+\
+ASSIGNMENT IS WORTH 10 POINTS (12 POINTS POSSIBLE WITH EXTRA CREDIT)
