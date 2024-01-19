@@ -121,7 +121,7 @@ my.vector
 
 [ENTER YOUR ANSWER HERE, 2 POINTS]
 
-2.  In the code chunk below, create an object called `sunday.runs` and assign to it the first row of `run.times.by.week`. [2 POINTS]
+2.  In the code chunk below, create an object called `sunday.runs` and assign to the data that is in the first row of `run.times.by.week` (i.e. separate out the first row of the matrix in `sunday.runs`. [2 POINTS]
 
 ```{r hw2chunk11}
 
