@@ -53,7 +53,7 @@ run.times.by.week <- cbind(run.times1,run.times2)
 run.times.by.week
 ```
 
--    What are two observations that tell a story about the data?
+-   What are two observations that tell a story about the data?
 
 [ENTER YOUR ANSWER HERE, 2 POINTS FOR COMPLETION, NO WRONG ANSWERS]
 
