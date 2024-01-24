@@ -25,9 +25,11 @@ You can see that the car types do not have a column name. This is because the ca
 
 ```{r rowNames}
 # here we can check the column names to see the variables in the data frame
+print("colnames mtcars:")
 colnames(mtcars)
 
 # here we can see the row names
+print("rownames mtcars:")
 rownames(mtcars)
 ```
 
@@ -35,26 +37,151 @@ rownames(mtcars)
 
 You can access a data frame's elements in several ways:
 
-(1) Like with matrices, we can use `[]` to designate a column. But it is not a good coding practice to use numbers within the brackets. If our data frame gets rearranged, our code would be wrong. But we can use column names as follows:
+(1) **Like with matrices, we can use `[]` to designate a column.** But it is not a good coding practice to use numbers within the brackets. If our data frame gets rearranged, our code would be wrong. But we can use column names as follows:
 
 ```{r getcolumn}
 mpg <- mtcars["mpg"]  # here mpg is a data.frame with just one column
 mpg <- mtcars[,"mpg"] # here mpg is a numeric vector
 ```
 
-We can also use brackets to get particular rows. Note here, we need to put the row name before a comma. And it returns a data.frame.  
+We can also use brackets to get particular rows. Note here, we need to put the row name before a comma. And it returns a data.frame.
+
 ```{r getrow}
 ferrari.dino <- mtcars["Ferrari Dino",] # a data.frame with just one row
 ```
 
-Here's a little expansion in which I get all the Mercedes. 
+Here's a little expansion in which I get all the Mercedes.
 
 ```{r getmultrows}
-# First I will assign the rownames to a character vector:
-car.types <- rownames(mtcars)
+# First I will create a vector that includes all Mazdas
+Mazdas <- c("Mazda RX4","Mazda RX4 Wag")
+
+# Then I will subset the data frame to the Mazdas 
+mtcars.Mazdas <- mtcars[Mazdas,]
+
+print(mtcars.Mazdas)
 ```
 
+Let's get fancier. Let's get all the Mercedes without having to type them out. For those totally new to programming, this may be a little complicated. We will come back to the concepts illustrated here, so don't worry if it feels hard right now. But hopefully this illustrates the flexibility you have for manipulating a data frame.
 
-Accessing the first two rows: R Copy code first_two_rows \<- my_data[1:2, ] Accessing Specific Elements: Combine row and column indices.
+```{r getmultrows_substr}
+# First I will get the first four characters of the row names using substr()
+sub4 <- substr(rownames(mtcars),1,4)
 
-Accessing a specific element (row 2, column Name): R Copy code second_name \<- my_data[2, "Name"]
+# Next, I will create a logical vector that is equal to TRUE when sub4 is equal to "Merc"
+is.Merc <- sub4=="Merc"
+
+# Let's take a look at is.Merc
+print("is.Merc:")
+is.Merc
+
+# Finally, let's make a new data frame that is just the rows for Mercedes cars
+mtcars.Mercedes <- mtcars[is.Merc,]
+
+# Let's look at this new data frame
+mtcars.Mercedes
+```
+
+Also, using brackets, we can delete columns or rows from a data frame (or matrix). For example, let's drop the columns named `drat` and `am`. Then let's drop the `Datsun 710`. Here I introduce the `which` function. It returns the column numbers (or row numbers) for which a statement is true. I also introduce `%in%` which evaluates overlap between two vectors.
+
+```{r dropwithbrackets}
+# Here I designate the column numbers I want to drop
+drop.cols <- which(colnames(mtcars) %in% c("drat","am"))
+
+# Here I drop those columns
+mtcars.reduced.columns <- mtcars[,-drop.cols]
+
+# Here I find the row number for the Datsun 710 (note == since not using a vector)
+drop.rows <- which(rownames(mtcars) == "Datsun 710")
+
+# Here I drop the row
+mtcars.reduced.columns.rows <- mtcars.reduced.columns[-drop.rows,]
+
+# I could also drop both the rows and columns at the same time
+mtcars.reduced.columns.rows <- mtcars[-drop.rows,-drop.cols]
+
+# Let's look at the first 6 rows of the new data frame
+head(mtcars.reduced.columns.rows)
+```
+
+NOTE GOOD CODING PRACTICE: When making modifications to a data frame, it is often wise to create new data frames to hold the revisions, rather than making modifications and then keeping the same object name. This is especially true when subtracting or renaming things or changing the content of the data - such that code run on different versions of a data frame would lead to different results. This practice makes it easier to check your code, keep track of changes, and avoid errors.
+
+2.  **With data frames, we can also use "data.frame.name\$" to refer to columns/variables.**
+
+Here we create a vector that is equal to the variable/column `mpg`.
+
+```{r showdollarsign}
+# The object mpg is being assigned the column names "mpg"
+mpg <- mtcars$mpg
+
+# Let's look at the mean value of mpg
+mean(mpg)
+```
+
+We can also use this approach to add columns to a data frame. In the example below, we create a new column `kpg` that converts miles per gallon (`mpg`) to kilometers per gallon.
+
+```{r createcol}
+# note since we are adding something new, rather than changing or deleting, it is fine to keep the same object name for this change
+mtcars$kpg <- mtcars$mpg * 1.6
+head(mtcars)
+```
+
+# Reading and writing data files / data frames
+
+## .RData (or .Rda) files
+
+-   .RData files can store multiple R objects. Sometimes data files are stored as .rds files, which only store a single object.
+
+-   To load an .RData file, use the load() function. This function loads objects stored in the .RData file into your R environment.
+
+-   After loading, the objects contained in the .RData file will be available in your R environment with their original names.
+
+```{r loadSleepStudy}
+load("data/SleepStudy.Rda")
+```
+
+After making modifications to your data, you can save it as an `.RData` or `.Rda` file using the save() function. And to save a `.rds` file, saveRDS(). For example:
+
+```{r saveEx}
+# To save an .Rdata or .Rda file
+#save(my.object, file = "path/output.Rda")
+
+# to save an .rds file
+#saveRDS(my_data, "path/output.rds")
+```
+
+## .csv files or .txt files
+
+A common way to import external data into R is from a CSV file. Use the read.csv() function.
+
+```{r showcsv}
+#data <- read.csv("path/file.csv")
+```
+
+For plain text files, use read.table() or readLines():
+
+```{r showtxt}
+#data <- read.table("path/file.txt", header = TRUE)
+
+#lines <- readLines("path/file.txt")
+```
+
+You can write out a `.csv` using the write.csv() function and a `.txt` file using write.table().
+
+```{r saveCSV}
+# write data frame to .csv file
+# write.csv(my.data, "path/output.csv")
+
+# write to a .text file
+# write.table(my.data, "path/output.txt", row.names = FALSE)
+```
+
+## Tips
+
+-   File Paths: File paths can be absolute or relative. Absolute paths specify the exact location on your computer. Relative paths are relative to your current working directory in R. We set up R Studio so that it should be easy to use relative paths!
+
+-   Working Directory: Use getwd() to find your current working directory and setwd("path/to/directory") to change it. But we set up R Studio so that if you .Rproj is loaded, you current working directory is set.
+
+-   Viewing Data: After reading a file, use head(data) to view the first few lines of your data frame.
+
+-   Handling Errors: If R can't read your file, check for typos in the file path and ensure the file format is correct.
