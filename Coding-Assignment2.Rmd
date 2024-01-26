@@ -35,18 +35,15 @@ run.times1 <- c(47.25,46.50,50.25,44.75,45.00,31.50,48.50)
 
 -   What is the "data type" of `run.times1`?
 
-numeric
+[TYPE YOUR ANSWER HERE, 1 POINT]
 
 -   What is the "data structure" of `run.times1`?
 
-vector
+[TYPE YOUR ANSWER HERE, 1 POINT]
 
 -   Below, create a new code chunk. Name the code chunk `hw2chunk2`. In it, write a line of code that will display (print) the the object `run.times1`?
 
-```{r hw2chunk2}
-run.times1
-# or print(run.times1)
-```
+[CREATE A CODE CHUNK HERE, 2 POINTS]
 
 2.  The object `run.times.by.week` shows data collected on someone's run times over two weeks.
 
@@ -67,7 +64,7 @@ run.times.by.week
 -   In the following code chunk, write a line of code to show the number of rows and columns in the matrix `run.times.by.week`. Also, add a comment to the code chunk, saying whatever you think makes sense. [2 POINTS]
 
 ```{r hw2chunk4}
-dim(run.times.by.week)
+
 ```
 
 3.  Note that when we use double equal signs (`==`) in R, we are evaluating whether or not the value to the left of `==` is equivalent to the value to the right. For example:
@@ -80,45 +77,36 @@ y <- x==4
 -   In the next code chunk, write 2 lines of code to (1) print `y`; and (2) show the data type of `y`. [2 POINTS]
 
 ```{r hw2chunk6}
-y
-class(y)
+
 ```
 
 -   What is another word for the data type of `y`? That is, what is a word that is not returned by R but that describes the type of data held by `y`?
 
-Boolean or dummy
+[ENTER YOUR ANSWER HERE, 1 POINT]
 
 4.  Below, create a new code chunk and name it `hw2chunk7`. In the chunk, create two vectors (your choice of length). Then "column bind" the two vectors in order to create a matrix. Print the matrix and its dimensions.
 
-```{r hw2chunk7}
-a <- c(1,2,3)
-b <- c(4,5,6)
-my.matrix <- cbind(a,b)
-my.matrix
-dim(my.matrix)
-```
+[CREATE YOUR CODE CHUNK HERE, 3 POINTS]
 
 5.  When you run the next code chunk, you will get an error.
 
 ```{r hw2chunk8}
-#my.object <- dog
-my.object <- "dog"
+my.object <- dog
 ```
 
 -   Explain the error and make a correction in the code chunk.
 
-Character data requires quotation marks surrounding it. 
+[ENTER ANSWER HERE, 2 POINTS]
 
 6.  When you run the next code chunk, you will get an error.
 
 ```{r hw2chunk9}
-#my.var <- (1,2,3)
-my.var <- c(1,2,3)
+my.var <- (1,2,3)
 ```
 
 -   Explain the error and make a correction in the code chunk.
 
-Creating a vector requires c(). 
+[ENTER ANSWER HERE, 2 POINTS]
 
 ### Extra Credit
 
@@ -131,13 +119,12 @@ my.vector
 
 -   What do you observe in the print of `my.vector`? Explain why you observe what you do.
 
-All entries in a vector must have the same data type. Rather than returning an error when a vector was created with numeric and character data, R converted the numeric data to character. 
+[ENTER YOUR ANSWER HERE, 2 POINTS]
 
 2.  In the code chunk below, create an object called `sunday.runs` and assign to the data that is in the first row of `run.times.by.week` (i.e. separate out the first row of the matrix in `sunday.runs`. [2 POINTS]
 
 ```{r hw2chunk11}
-sunday.runs <- run.times.by.week[1,]
-sunday.runs
+
 ```
 
 \
