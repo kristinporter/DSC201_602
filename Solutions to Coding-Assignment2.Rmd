@@ -1,5 +1,5 @@
 ---
-title: "Coding Assignment 2"
+title: "Solutions for Coding Assignment 2"
 output: pdf_document
 ---
 

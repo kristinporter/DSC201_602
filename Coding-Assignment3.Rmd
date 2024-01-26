@@ -99,7 +99,7 @@ From these measures, we may want to create new measures that tell a story about 
 
 ```
 
-**(4)** We can do the same for GPA. In the following code chunk, create a new variable called `LowGPA`. It should be equal to 1 when a student has a GPA that is less than 3 and 0 otherwise. Follow the same coding steps as above for (3), making an needed adjustments.
+**(5)** We can do the same for GPA. In the following code chunk, create a new variable called `LowGPA`. It should be equal to 1 when a student has a GPA that is less than 3 and 0 otherwise. Follow the same coding steps as above for (3), making an needed adjustments. [3 POINTS]
 
 ```{r createLowGPA}
 
@@ -110,7 +110,7 @@ From these measures, we may want to create new measures that tell a story about 
 
 Knowing what measures are available to us, we can get more specific about research questions.
 
-**(5) (a)** For example, we may ask: Do students with insufficient sleep have lower GPA's than students with sufficient sleep? In the code chunk below, compute the mean (average) GPA among students who have insufficient sleep to those students who have sufficient sleep. The comments in the code chunk will guide you. [3 POINTS]
+**(6) (a)** For example, we may ask: Do students with insufficient sleep have lower GPA's than students with sufficient sleep? In the code chunk below, compute the mean (average) GPA among students who have insufficient sleep to those students who have sufficient sleep. The comments in the code chunk will guide you. [3 POINTS]
 
 ```{r compareGPA}
 # Find which rows have SufficientSleep equal to 0 (find the row numbers).
@@ -134,7 +134,7 @@ Knowing what measures are available to us, we can get more specific about resear
 
 ```
 
-**(5) (b)** Explain your results. Does GPA differ by whether students have sufficient sleep or not? [1 POINT]
+**(6) (b)** Explain your results. Does GPA differ by whether students have sufficient sleep or not? [1 POINT]
 
 To better answer this question we may want to conduct a t-test. A t-test is a statistical test used to compare the means (average values) of two groups and determine if they are significantly different from each other.
 
@@ -155,7 +155,7 @@ print(ttest)
 
 The results should tell the exact same story as the analysis you did above. But now we can also confirm that the differences are not statistically significant. (The p-value = 0.158, and the cutoff for statistical significance is typically 0.05 or 0.1).
 
-**(6)** What are two additional research questions you could ask to explore the relationship between sleep and academic performance using the variables in the data (including those we created). No coding required here. [2 POINTS]
+**(7)** What are two additional research questions you could ask to explore the relationship between sleep and academic performance using the variables in the data (including those we created). No coding required here. [2 POINTS]
 
 # Extra Credit
 
