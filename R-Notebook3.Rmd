@@ -118,7 +118,7 @@ mutated_data <- mutate(my_tibble, w = x * 2)
 mutated_data
 ```
 
-### combination of multiple functions used togeter
+### combination of multiple functions used together
 
 We can carry out numerous operations/manipulations on rows and columns at a time with the following format. We create a new tibble, assign it to the tibble we want to revise followed by %\>%. Then we can call multiple dplyr functions/verbs in a slightly different format. Mainly, we no longer pass in the tibble to each function since we have already noted it. And, following each function/verb, we add another %\>% - to the end of all except the final function.
 
