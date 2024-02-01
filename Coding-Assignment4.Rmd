@@ -91,7 +91,7 @@ existing variables, which is what you will do below.
 In the last homework (Coding-Assignment3.Rmd Problem #6), you explored the question: Do students with insufficient sleep have lower GPA's than students with sufficient sleep? You used base R to follow steps to answer this question in a code chunk named `compareGPA`. For extra credit, create a code chunk and use `dplyr` to carry out the same analysis. That is, use ``dplyr`` to compute the GPA for students with insufficent sleep and the GPA for students with sufficient sleep. [2 POINTS] 
 
 
-
+TOTAL OF 25 POINTS (27 POINTS POSSIBLE WITH EXTRA CREDIT)
 
 # References
 
