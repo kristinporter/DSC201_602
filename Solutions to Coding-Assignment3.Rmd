@@ -1,0 +1,189 @@
+---
+title: "Coding Assignment 3"
+output: pdf_document
+---
+
+# Overview
+
+For this assignment, you will work with data from a sleep study. The data were obtained from a sample of college students who did skills tests to measure cognitive function, completed a survey about attitudes and habits, and kept a sleep diary to record time and quality of sleep over a two week period. The documentation for the data can be found [here](https://www.rdocumentation.org/packages/Lock5withR/versions/1.2.2/topics/SleepStudy). Note that the documentation is not entirely accurate, but it should still provide sufficient guidance for our purposes.
+
+Our goal is to do an exploratory analysis of the relationship between sleep and academic performance.
+
+First, run the following chunk to load `SleepStudy.Rda`. This will load the R object `SleepStudy` (a data frame) into your environment and provide a summary with `str()`. For this code chunk to run, be sure that the data file is in a subfolder of your DSC201 folder called "data."
+
+```{r readData}
+load("data/SleepStudy.Rda")
+str(SleepStudy)
+```
+
+Notice a few things about the listed data types of the variables in `SleepStudy`.
+
+-   The first column lists the variables (column names) in the data frame.
+
+-   Following ":", we see the data type. Note that numeric data are described with three different subtypes:
+
+    -   "int" tells us that the numbers are integers (whole values only)
+
+    -   "Factor" tells us that the numbers represent categorical data. When you have a column in a data frame that is a factor, it means each entry in that column must belong to one of the predefined categories (levels). For example, if you have a survey with a question about favorite fruit, and the options are "Apple", "Banana", and "Cherry", these options are the levels of the factor. This data frame was created in a way that specifies the categories the numbers represent.
+
+    -   "num" is then continuous numeric data.
+
+    -   Some functions will treat these data differently, depending on their subtype.
+
+-   Finally, we see the data for the first few observations for each variable.
+
+# **Sample description**
+
+The data are a sample of college students. As a first step, let's describe our sample - who is in it? This may help us understand how representative the sample is of college students. That is, it can help us understand what kinds of college students findings may generalize to.
+
+First, let's look at how far into their studies the students are by analyzing `ClassYear`. Here we will use the function `table()`, which takes an object with contents that "can be interpreted as factors" - basically, anything countable. The function `table()` will return a frequency table for each value in the object you pass in.
+
+**(1) (a)** In the following code chunk use `table()` to get the frequencies of `ClassYear`. [1 POINT]
+
+```{r desribeClassYear}
+table(SleepStudy$ClassYear)
+```
+
+**(1) (b)** Describe the results. Are any years over or under represented? What implications might this have on the results to our research questions? [1 POINT FOR COMPLETION, NO WRONG ANSWERS]
+
+Now let's look at `GPA`.
+
+**(2) (a)** In the following code chunk, compute the mean of `GPA`. Let's also look at how `GPA` is distributed - that is, how it varies across students. To do this, use the function `quantile`. Remember that `help("quantile")` will pull up the documentation, but as a hint, you will pass the same thing into this function that you pass into `mean()`. [1 POINT]
+
+```{r describeGPA}
+mean(SleepStudy$GPA)
+quantile(SleepStudy$GPA)
+```
+
+**(2) (b)** Describe the results. What implications might this have on the results to our research questions? [1 POINT FOR COMPLETION, NO WRONG ANSWERS]
+
+But - we don't need to look at each variable one by one. There are multiple functions that will describe your data frame. For example, `summary()` will provide a summary of each variable (column). Run the chunk below.
+
+```{r showSummary}
+summary(SleepStudy)
+```
+
+**(3)** Describe results for 5 of the variables. What do the results tell you about the study sample? What do the results not tell you? [3 POINTS FOR COMPLETION, NO WRONG ANSWERS]
+
+# Measure creation
+
+Above, we stated that we are doing an exploratory analysis of the relationship between sleep and academic performance. How exactly are we going to measure "sleep" and "academic performance"?
+
+For sleep, we may be concerned with how much sleep. In our data, this is measured, according to the documentation, by the "average hours of sleep for all days." This is captured in `AverageSleep`. Also, we might be interested in sleep quality. This is measured in our data by a scale (an integer) from 1 to 18, with higher numbers signifying worse quality.
+
+For academic performance, we may be concerned with grade point average (`GPA`) or the number of classes a student missed (`ClassesMissed`).
+
+From these measures, we may want to create new measures that tell a story about the data in a slightly different way, depending on our interests or goals for analyses. For example, we might define "sufficient sleep" as 8 hours or more, on average. Let's create this measure.
+
+**(4)** In the following code chunk, create a new variable called `SufficientSleep`. It will be equal to 1 when a student gets 8 or more average hours of sleep and equal to 0 otherwise. Note that last week, we learned the operator "==" which asks whether the value on the left is equal to the value on the right. We can use "\>=" similarly. It asks whether the value on the left is greater than or equal to the value on the right. Also, "\>" asks whether the value on the left is greater than the value on the right. And "\<=" and "\<" act the same way but for less then. Also in the code chunk, find the proportion of students with sufficient sleep. The comments in the code chunk will guide you for all of this. And feel free to add prints to check you work. [4 POINTS AS SHOWN BELOW]
+
+```{r createSufficientSleep}
+# Step 1: Create a vector called AvgSleepGE8.
+# It should equalTRUE when a student's average sleep is >= 8 hours.
+# (Hint: see the chunk titled getmultrows_substr in R-Notebook.Rmd
+# for an example using == and modify accordingly.) [1 POINT]
+AvgSleepGE8 <- SleepStudy$AverageSleep >= 8
+
+# Step 2: Create a new vector called AvgSleepGE8_int.
+# It should be equal to 1 when AvgSleepGE8 is TRUE and equal to 0 otherwise.
+# (Hint: you do this my simply multiplying AvgSleepGE8 by 1!) [1 POINT]
+AvgSleepGE8_int <- 1*AvgSleepGE8
+# Also works: AvgSleepGE8_int <- as.numeric(AvgSleepGE8)
+
+# Step 3: Create a new variable *in the data frame SleepStudy* called SufficientSleep.
+# It should be equal to AvgSleepGE8_int [1 POINT]
+SleepStudy$SufficientSleep <- AvgSleepGE8_int 
+
+# To confirm that your new variable has been added and looks correct,
+# use the bracket [ ] method to print the first 10 rows of SleepStudy
+# but only two columns (AverageSleep and SufficientSleep).
+# This can be accomplished in 1 or two lines of code. [1 POINT]
+SleepStudy[1:10,c("AverageSleep","SufficientSleep")]
+```
+
+**(4)** We can do the same for GPA. In the following code chunk, create a new variable called `LowGPA`. It should be equal to 1 when a student has a GPA that is less than 3 and 0 otherwise. Follow the same coding steps as above for (3), making an needed adjustments.
+
+```{r createLowGPA}
+GPA_lt3 <- SleepStudy$GPA < 3
+GPA_lt3_int <- 1*GPA_lt3
+SleepStudy$LowGPA <- GPA_lt3_int
+SleepStudy[1:10,c("GPA","LowGPA")]
+```
+
+# Explore research questions
+
+Knowing what measures are available to us, we can get more specific about research questions.
+
+**(5) (a)** For example, we may ask: Do students with insufficient sleep have lower GPA's than students with sufficient sleep? In the code chunk below, compute the mean (average) GPA among students who have insufficient sleep to those students who have sufficient sleep. The comments in the code chunk will guide you. [3 POINTS]
+
+```{r compareGPA}
+# Find which rows have SufficientSleep equal to 0 (find the row numbers).
+# Create a vector to hold these row numbers. 
+which.IS <- which(SleepStudy$SufficientSleep==0)
+
+# Do the same to find which rows have SufficientSleep equal to 1. 
+which.SS <- which(SleepStudy$SufficientSleep==1)
+
+# Create a data.frame with just the students with insufficient sleep
+# (using the row numbers and the bracket method)
+SleepStudy_IS <- SleepStudy[which.IS,]
+
+# Create a data.frame with just the students with sufficient sleep 
+SleepStudy_SS <- SleepStudy[which.SS,]
+
+# Find the mean GPA in the data frame that is just studients with insufficient sleep
+mean(SleepStudy_IS$GPA)
+
+# Find the mean GPA in the data frame that is just studients with sufficient sleep
+mean(SleepStudy_SS$GPA)
+```
+
+**(5) (b)** Explain your results. Does GPA differ by whether students have sufficient sleep or not? [1 POINT]
+
+Reponse: There is not a meaningful difference between the mean GPA among those with insufficient sleep and the nean GPA among those with sufficient sleep.  
+
+To better answer this question we may want to conduct a t-test. A t-test is a statistical test used to compare the means (average values) of two groups and determine if they are significantly different from each other.
+
+There are mainly two types of t-tests:
+
+-   Independent Samples T-test: Used when comparing the means of two separate groups (e.g., comparing the GPA's of students with and without sufficient sleep).
+
+-   Paired Samples T-test: Used when comparing the means of the same group at two different times. This does not apply to our question.
+
+The t-test calculates the size of the difference between groups relative to the variation in the data. A significant result indicates that it's unlikely the observed difference happened by chance. We conduct a t-test with the function `t.test()`. Look up the documentation for `t.test()`. List three things you observe. It's ok to discuss information in the documentation you do not understand - e.g., you can ask questions, explain what you want to understand. [3 POINTS]. (I failed to add this to the rubric. Thank you for your efforts on this!)
+
+Run the chunk below. There is no code to write here or question to answer, but review the code and results.
+
+```{r ttest}
+ttest <- t.test(GPA ~ SufficientSleep, data = SleepStudy)
+print(ttest)
+```
+
+The results should tell the exact same story as the analysis you did above. But now we can also confirm that the differences are not statistically significant. (The p-value = 0.158, and the cutoff for statistical significance is typically 0.05 or 0.1).
+
+**(6)** What are two additional research questions you could ask to explore the relationship between sleep and academic performance using the variables in the data (including those we created). No coding required here. [2 POINTS]
+
+1. Do students who take early classes go sleep earlier than students who do not take early classes? 
+
+2. Is the relationship between sufficient sleep and GPA different for men than for women? 
+
+# Extra Credit
+
+1.  In the code chunk titled "createSufficientSleep," you created a new variable, `SufficientSleep`, in 3 steps - using three lines of code. How can you accomplish the same with just one line of code? Create a code chunk below to write and run the line of code. [2 POINTS]
+
+```{r createSufficientSleep}
+SleepStudy$SufficientSleep <- 1*(SleepStudy$AverageSleep >=8)
+```
+
+2.  Conduct a t-test of whether `StressScore` is different for those who had a low GPA (`LowGPA`) versus those who did not have a low GPA. Create a code chunk below to present and run the code. [2 POINTS]
+
+
+```{r ttestStressScore}
+ttestEC <- t.test(StressScore ~ LowGPA, data = SleepStudy)
+print(ttestEC)
+```
+
+
+
+
+THIS ASSIGNMENT IS WORTH 20 POINTS (24 POINTS POSSIBLE WITH EXTRA CREDIT).
