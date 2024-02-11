@@ -19,7 +19,6 @@ load("data/SleepStudy.Rda")
 library(dplyr)
 SleepTibble <- as_tibble(SleepStudy)
 glimpse(SleepTibble)
-
 ```
 
 # Data Moves
@@ -181,7 +180,7 @@ SleepTibble_expanded <- SleepTibble %>%
       DepressionStatus %in% c("moderate", "severe") | 
       AnxietyStatus %in% c("moderate", "severe"), 1, 0)
   )
-  
+
 ```
 
 -   Write 1-2 lines of code that will display some results that help you check if your grouping worked as you expected. This may be a print or some other display. But limit your print to a subset of rows and columns so that you can view the entire display on your screen. You do not have to use `dplyr` for the check. If you are not sure what code to write, partial credit will be give for writing text of what you think would be helpful. [2 POINTS]
