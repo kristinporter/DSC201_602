@@ -127,10 +127,10 @@ Knowing what measures are available to us, we can get more specific about resear
 # Create a data.frame with just the students with sufficient sleep 
 
 
-# Find the mean GPA in the data frame that is just studients with insufficient sleep
+# Find the mean GPA in the data frame that is just students with insufficient sleep
 
 
-# Find the mean GPA in the data frame that is just studients with sufficient sleep
+# Find the mean GPA in the data frame that is just students with sufficient sleep
 
 ```
 
