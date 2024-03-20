@@ -26,11 +26,11 @@ In this notebook, we will explore bar charts, histograms, scatter plots, and lin
 
 Let's load the colleges dataset - the same one we looked at for Python data viz. 
 
-```{r load-data echo=FALSE}
+```{r load-data}
 collegesDat <- read_csv('data/colleges.csv')
 ```
 
-### (1) Bar Charts
+## (1) Bar Charts
 
 #### Basic R
 
@@ -56,7 +56,7 @@ ggplot(collegesDat, aes(x=highest_degree)) +
   labs(title="Distribution of Colleges by Highest Degree Offered", x="Highest Degree Offered", y="Count")
 ```
 
-### (2) Histograms
+## (2) Histograms
 
 #### Basic R
 
@@ -77,7 +77,7 @@ ggplot(collegesDat, aes(x=grad_rate)) +
 ```
 
 
-### (3) Scatter Plots
+## (3) Scatter Plots
 
 #### Basic R
 
@@ -132,7 +132,7 @@ ggplot(filterDat, aes(x = admit_rate, y = grad_rate, size = enrollment)) +
   
 ```
 
-### (4) Line Plots
+## (4) Line Plots
 
 Here we will use the UFO data. Like we did in python, we need to first get counts of sightings by hear. We can do this with `dplyr`. 
 
