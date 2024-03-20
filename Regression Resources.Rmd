@@ -1,0 +1,12 @@
+---
+title: "Tutorials for Using R and Python for Linear Regression"
+author: "Kristin Porter"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+# Python Tutorials
+
+Most python resources focus on using regression for predictive analytics - to build a model for making predictions in different data than data used to estimate the model.
+
+-   <https://blog.damavis.com/en/linear-regression-with-python/>
