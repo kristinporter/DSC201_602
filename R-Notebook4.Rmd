@@ -52,7 +52,7 @@ Here is how we make the same plot using `ggplot2`.
 ```{r bar-chart-ggplot}
 ggplot(collegesDat, aes(x=highest_degree)) +
   geom_bar(fill="blue") + # this specifies to create a bar chart
-  theme_classic() +  # this specifies a set of formatting options 
+  theme_minimal() +  # this specifies a set of formatting options 
   labs(title="Distribution of Colleges by Highest Degree Offered", x="Highest Degree Offered", y="Count")
 ```
 
@@ -178,6 +178,88 @@ ggplot(sightings_by_year_state, aes(x = Dates.Documented.Year, y = Count, group 
        y = "Number of Sightings") +
   theme_minimal() +
   theme(legend.position = "none") # Hide the legend
+
+
+```
+
+## (5) Heat Maps
+
+A heatmap is a graphical representation of data in which values in a matrix are represented as shades of or different colors. They are designed so that viewers grasp patterns, variances, and relationships in the data quickly through color gradients.
+
+Heat maps can be used to reveal...
+
+Patterns: Easily identify trends and patterns over time or across categories. For example, in a heatmap of website traffic by day and hour, you might see higher traffic (darker colors) during weekdays and working hours.
+Anomalies: Spot outliers or anomalies that deviate from the overall pattern. In a heatmap of sensor data across different locations, an unusually high temperature at a single sensor location would stand out.
+Correlations: Understand the correlation between different variables. A heatmap of correlation coefficients between financial assets could highlight which assets move together or in opposition.
+Density: Visualize the density or intensity of events. A heatmap of crime incidents in a city could show areas with higher crime rates.
+Comparisons: Compare different categories or groups. In sales data across different regions and products, a heatmap can quickly show which products are bestsellers in which regions.
+
+
+Here are some example of when heatmaps can be valuable: 
+
+Weather Data Visualization: Heatmaps are used to visualize temperature changes across different geographical regions, with colors representing temperature ranges. This helps in understanding climate patterns or the impact of a heatwave.
+
+Genomic Data Analysis: In bioinformatics, heatmaps are used to display gene expression data, where rows represent genes and columns represent different experimental conditions. The color intensity indicates the level of gene expression, helping in identifying genes that are overexpressed or underexpressed under certain conditions.
+
+Financial Market Data: Heatmaps are employed to show the performance of stocks in a market, with each cell representing a stock. The color shades may indicate the stock's daily or yearly performance, helping investors identify sectors or stocks that are performing well or poorly.
+
+Website Traffic Analysis: Analyze web page activity by showing the frequency of visits, clicks, or other actions on different parts of a page or across various times of the day. This helps in optimizing website design and content placement for better user engagement.
+
+Educational Data: In the context of colleges, a heatmap could be used to visualize variables such as graduation rates, median alumni earnings, or student satisfaction across different departments or programs. This can highlight areas of strength and opportunities for improvement within an institution.
+
+Let's make a simple example with out colleges data. Let's examine average median debt by region and by ownership of the colleges. First, we need to get the average of median debt within each combination of region and ownership: 
+```{r heatmapPrep}
+# First I'm renaming one region for easier printing
+collegesDat$region[collegesDat$region=="Rockies & Southwest"] <- "Southwest"
+
+# Here we filter and group data -then summarize to get the average
+heatmap_data <- collegesDat %>%
+  filter(region != "US Service Schools") %>%
+  group_by(region,ownership) %>%
+  summarise(avg_median_debt = mean(median_debt, na.rm = TRUE)) %>%
+  ungroup()
+
+# View the first few rows of the aggregated data
+head(heatmap_data)
+```
+
+Then we can use ggplot2 for creating our heatmap. Notice we use "geom_tile" for the heatmap. Also notice that we use region and ownership for the x and y axes and the average median debt for "fill."
+
+```{r heatmap}
+ggplot(heatmap_data, aes(x = region, y = ownership, fill = avg_median_debt)) +
+  geom_tile(color = "white") +
+  scale_fill_gradient(low = "lightblue", high = "darkblue", name = "Average Median Debt") +
+  labs(title = "Average Median Debt by Region and Ownership", x = "Region", y = "Ownership") +
+  theme_minimal() 
+```
+
+As mentioned above, heat maps can be helpful to look at correlations across a group of variables. Let's give this a try: 
+
+```{r corr}
+# This will select only the columns that are of type double (continuous)
+double_vars <- select_if(collegesDat, is.double) # using dplyr
+
+# Compute correlations - this returns a matrix with each row a variable and each column a variable
+corCollegeVars <- cor(double_vars, use = "complete.obs")
+
+# We need to reshape
+library(reshape2)
+melted_corr_matrix <- melt(corCollegeVars)
+
+# Plot with ggplot2
+library(ggplot2)
+
+# Create the heatmap
+ggplot(data = melted_corr_matrix, aes(x = Var1, y = Var2, fill = value)) + 
+  geom_tile() +  # This creates the tiles for the heatmap
+  scale_fill_gradient2(low = "green", high = "red", mid = "white", 
+                       midpoint = 0, limit = c(-1,1), space = "Lab", 
+                       name="Correlation") +
+  theme_minimal() +  # Optional: Use a minimal theme
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  # Rotate x axis labels
+  labs(x = "", y = "", title = "Correlation Matrix Heatmap")  # Customize labels and title
+
+
 
 
 ```
