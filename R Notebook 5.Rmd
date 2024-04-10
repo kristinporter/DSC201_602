@@ -5,7 +5,8 @@ output: pdf_document
 
 This notebook provides an example function that takes three arguments: weight, height, and system.
 It checks the system argument to decide which formula to use for BMI calculation: the metric formula or the US formula.
-The calculated BMI and the system used are returned as a list.
+The calculated BMI and the system used are returned as a list. 
+I'm using a specific format for my comments, following the framework of the `Roxygen` package. This is not required, but the style provides a good standard. 
 
 ```{r}
 #' Calculate Body Mass Index (BMI)
