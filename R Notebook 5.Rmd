@@ -1,0 +1,49 @@
+---
+title: "R Notebook 5: User-defined function example"
+output: pdf_document
+---
+
+This notebook provides an example function that takes three arguments: weight, height, and system.
+It checks the system argument to decide which formula to use for BMI calculation: the metric formula or the US formula.
+The calculated BMI and the system used are returned as a list.
+
+```{r}
+#' Calculate Body Mass Index (BMI)
+#'
+#' This function calculates the Body Mass Index (BMI) based on the user's weight
+#' and height. It supports both the metric system (kilograms and meters) and the
+#' US customary system (pounds and inches).
+#'
+#' @param weight Numeric: The weight of the individual in kilograms if using the metric
+#' system, or in pounds if using the US system.
+#' @param height Numeric: The height of the individual in meters if using the metric
+#' system, or in inches if using the US system.
+#' @param system Character: Specifies the measurement system used for the inputs.
+#' Can be either "metric" or "US".
+#'
+#' @return A list containing the calculated BMI and the measurement system used.
+#' @examples
+#' calculate_bmi(70, 1.75, "metric")
+#' calculate_bmi(155, 69, "US")
+#'
+calculate_bmi <- function(weight, height, system) {
+  if (system == "metric") {
+    bmi <- weight / (height^2)
+  } else if (system == "US") {
+    bmi <- (weight / (height^2)) * 703
+  } else {
+    stop("Invalid system. Use 'metric' or 'US'.")
+  }
+  
+  return(list(BMI = bmi, System = system))
+}
+
+# Example usage
+# Metric system
+print(calculate_bmi(70, 1.75, "metric"))
+
+# US system
+print(calculate_bmi(155, 69, "US"))
+
+```
+
