@@ -1,21 +1,23 @@
 ---
-title: "R Notebook #1: Introduction to R Notebooks and R Data Types and Structures"
-output: pdf_document
+title: 'R Notebook #1: Introduction to R Notebooks and R Data Types and Structures'
+output:
+  html_document:
+    df_print: paged
 ---
 
 # Introduction to R Markdown Notebooks
 
 This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code.
 
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*.
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter* for Mac and *Ctrl+Shift+Enter* for Windows.
 
 ```{r testChunk}
 2+2
 ```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I* for Mac and *Ctrl+Alt+I* for Windows.
 
-When you "knit" the notebook, a pdf file containing the code and output will be saved and displayed.
+When you "knit" the notebook, an html or pdf file containing the code and output will be saved and displayed. Knitting to a pdf can be more complicated to set-up.
 
 More information can be added on the first line of code chunks. For example, in "`{r testChunk}` we are naming the code chunk `testChunk`. The point is to use a descriptive label.
 
