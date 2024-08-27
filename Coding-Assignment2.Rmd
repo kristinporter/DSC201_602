@@ -11,7 +11,6 @@ output: pdf_document
 
 -   Gain introduction to errors and use knowledge from class to diagnose problem.
 
- 
 
 ### Some notes about running code chunks
 
@@ -43,7 +42,7 @@ run.times1 <- c(47.25,46.50,50.25,44.75,45.00,31.50,48.50)
 
 -   Below, create a new code chunk. Name the code chunk `hw2chunk2`. In it, write a line of code that will display (print) the the object `run.times1`?
 
-[CREATE A CODE CHUNK HERE, 2 POINTS]
+[CREATE A CODE CHUNK HERE, 1 POINT]
 
 2.  The object `run.times.by.week` shows data collected on someone's run times over two weeks.
 
@@ -61,7 +60,7 @@ run.times.by.week
 
 [ENTER YOUR ANSWER HERE, 2 POINTS FOR COMPLETION, NO WRONG ANSWERS]
 
--   In the following code chunk, write a line of code to show the number of rows and columns in the matrix `run.times.by.week`. Also, add a comment to the code chunk, saying whatever you think makes sense. [2 POINTS]
+-   In the following code chunk, write a line of code to show the number of rows and columns in the matrix `run.times.by.week`. Also, add a comment to the code chunk, saying whatever you think makes sense. [1 POINTS]
 
 ```{r hw2chunk4}
 
@@ -74,7 +73,7 @@ x <- 4
 y <- x==4
 ```
 
--   In the next code chunk, write 2 lines of code to (1) print `y`; and (2) show the data type of `y`. [2 POINTS]
+-   In the next code chunk, write 2 lines of code to (1) print `y`; and (2) show the data type of `y`. [1 POINT]
 
 ```{r hw2chunk6}
 
@@ -96,7 +95,7 @@ my.object <- dog
 
 -   Explain the error and make a correction in the code chunk.
 
-[ENTER ANSWER HERE, 2 POINTS]
+[ENTER ANSWER HERE, 1 POINTS]
 
 6.  When you run the next code chunk, you will get an error.
 
@@ -108,9 +107,7 @@ my.var <- (1,2,3)
 
 [ENTER ANSWER HERE, 2 POINTS]
 
-### Extra Credit
-
-1.  Run the following code chunk.
+7.  Run the following code chunk.
 
 ```{r hw2chunk10}
 my.vector <- c(4,3,"tree")
@@ -121,11 +118,11 @@ my.vector
 
 [ENTER YOUR ANSWER HERE, 2 POINTS]
 
-2.  In the code chunk below, create an object called `sunday.runs` and assign to the data that is in the first row of `run.times.by.week` (i.e. separate out the first row of the matrix in `sunday.runs`. [2 POINTS]
+8.  In the code chunk below, create an object called `sunday.runs` and assign to the data that is in the first row of `run.times.by.week` (i.e. separate out the first row of the matrix in `sunday.runs`. [2 POINTS]
 
 ```{r hw2chunk11}
 
 ```
 
 \
-ASSIGNMENT IS WORTH 20 POINTS (24 POINTS POSSIBLE WITH EXTRA CREDIT)
+ASSIGNMENT IS WORTH 20 POINTS 

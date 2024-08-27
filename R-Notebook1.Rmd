@@ -3,6 +3,7 @@ title: 'R Notebook #1: Introduction to R Notebooks and R Data Types and Structur
 output:
   html_document:
     df_print: paged
+  pdf_document: default
 ---
 
 # Introduction to R Markdown Notebooks
