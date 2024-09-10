@@ -1,0 +1,9 @@
+/* Control the font size of code chunks */
+  pre {
+    font-size: 0.65em;  /* Adjusts the font size for code chunks */
+  }
+
+/* Control the font size of code output */
+  .remark-code, .remark-inline-code {
+    font-size: 0.45em;  /* Adjusts the font size for code output */
+  }

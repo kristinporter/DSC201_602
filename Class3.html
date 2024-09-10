@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>DSC 201_602: Class 3</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Kristin Porter" />
+    <meta name="date" content="2024-09-09" />
+    <script src="Class3_files/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# DSC 201_602: Class 3
+]
+.author[
+### Kristin Porter
+]
+.date[
+### 2024-09-09
+]
+
+---
+
+
+
+
+&lt;style type="text/css"&gt;
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+&lt;/style&gt;
+
+
+
+## Agenda
+ 1. Housekeeping (3 minutes)
+ 2. Overview of Base R (2 minutes)
+ 3. Very quick review of R basics (5 minutes)
+ 4. Data Frames in Base R (15-20 minutes)
+ 5. Data Science Essentials: **Who is in my data?** (10-15 minutes)
+ 5. Intro to ChatGPT for very simple coding tasks (10 minutes)
+
+
+---
+.centered[
+# Housekeeping
+]
+---
+## Reminder to Start Zoom Recording
+
+---
+## Announcements &amp; Reminders
+
+-   Attendance important &amp; cameras on please
+
+
+-   Six Ways to Get Help &amp; Course Collaboration Leaders
+
+
+-   Moodle &amp; assignments debrief
+
+
+-   Joing the class late? Please reach out to me.
+
+
+---
+.centered[
+# Overview of Base R
+]
+
+---
+## What is Base R?
+
+-   **Base R** refers to the core set of functions, data types, and utilities included with the default R installation.
+
+
+-   It provides essential tools for working with vectors, matrices, data frames, and lists (which we will learn about later), as well as basic **data manipulation**, **statistics**, and **plotting** functions.
+
+-   Beyond Base R, coding in R relies on a vast number of **packages** (or **libraries**) that are contributed by R users all over the world. All these packages are free and can be used by anyone. We will learn about how to install and use packages next week, and we will dive deeply into a package called `dplyr`, which provides alternative approaches to what we are learning today. 
+
+---
+## Alternatives to Base R
+
+-   **Tidyverse**: A collection of packages designed for more intuitive data manipulation and visualization. Syntax is often cleaner for larger data workflows. (**`dplyr`, which we will learn next week is part of this collection.**)
+  
+
+-   **Data.table**: A faster alternative to Base R data frames, optimized for large datasets. (**Beyond scope of class.**)
+
+
+-   **Matrix-specific Packages**: For large numerical datasets, for efficient matrix operations. (**Beyond scope of class.**)
+
+---
+## Why Learn Base R?
+
+-   **Provides a strong foundation**: Most R packages build upon the principles of Base R, so understanding it helps you with advanced techniques.
+
+
+-   **Lightweight**: Base R functions are fast and simple for smaller or less complex tasks.
+
+
+-   **Always available**: Base R is built-in, meaning you don’t need to install any additional packages.
+
+---
+.centered[
+# Very Quick Review
+]
+
+---
+## Some syntax and terminology (mostly a review)
+
+-   An R **object** can store different types of data, such as:
+    -   **Numbers** (e.g., `10`, `3.14`)
+    -   **Text** (e.g., `"Hello"`, `"R is fun!"`)
+    -   **Vectors** (e.g., a list of numbers or text)
+    -   **Matrices** (e.g., a table of rows and columns of the same data type)
+    -   **Data Frames** (e.g., a table of rows and columns of different data types)
+
+
+-   We assign values to objects using the &lt;- operator or =. 
+    - Tip: &lt;- is very much preferred, but = also works.
+
+
+```r
+my_number &lt;- 42
+my_text &lt;- "Data Science is awesome!"
+```
+---
+## Some syntax and terminology (mostly a review)
+
+- R **functions** are commands that perform specific tasks in R. 
+  -   A function takes *input* (called arguments) and returns *output*.
+  -   You can pass objects as inputs into functions to operate on them.
+  -   Some functions inspect objects by telling us info about it.
+  
+
+```r
+# Use the 'c()' function to create a vector of numbers
+numbers &lt;- c(1, 2, 3)  
+# Use the `sum()` function to sum across the vector
+total &lt;- sum(numbers)
+# Inspect the object
+class(numbers)
+```
+
+```
+## [1] "numeric"
+```
+
+---
+.centered[
+# Data Frames in Base R
+]
+
+---
+## Overview of Data Frames in Base R
+
+A data frame is a two-dimensional table-like structure that can hold **columns of different types** (e.g., numeric, character, and logical).
+
+Each column in a data frame is a vector, and the length of each vector (number of rows) must be the same across all columns.
+
+---
+## Built-in Data Frames in R
+
+We use a R package in base R called `datasets` to access built-in toy data frames.
+
+
+```r
+# List all datasets from the 'datasets' package
+data(package="datasets")
+```
+
+When you run the above code chunk, it will open a new tab in R Studio, which lists all of the datasets and a brief description. 
+
+---
+## Viewing the Data Frame
+
+Let's inspect the data frame `mtcars` by looking at the first 6 rows using the function `head()`:
+
+
+```r
+head(mtcars)
+```
+
+```
+##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+```
+
+Let's look at the structure of the data frame using `str()`:
+
+
+```r
+str(mtcars)
+```
+
+```
+## 'data.frame':	32 obs. of  11 variables:
+##  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
+##  $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...
+##  $ disp: num  160 160 108 258 360 ...
+##  $ hp  : num  110 110 93 110 175 105 245 62 95 123 ...
+##  $ drat: num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
+##  $ wt  : num  2.62 2.88 2.32 3.21 3.44 ...
+##  $ qsec: num  16.5 17 18.6 19.4 17 ...
+##  $ vs  : num  0 0 1 1 0 1 0 1 1 1 ...
+##  $ am  : num  1 1 1 0 0 0 0 0 0 0 ...
+##  $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
+##  $ carb: num  4 4 1 1 2 1 4 2 2 4 ...
+```
+
+---
+## Column and Row Names
+
+
+```r
+colnames(mtcars)
+```
+
+```
+##  [1] "mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "vs"   "am"   "gear"
+## [11] "carb"
+```
+
+```r
+rownames(mtcars)
+```
+
+```
+##  [1] "Mazda RX4"           "Mazda RX4 Wag"       "Datsun 710"         
+##  [4] "Hornet 4 Drive"      "Hornet Sportabout"   "Valiant"            
+##  [7] "Duster 360"          "Merc 240D"           "Merc 230"           
+## [10] "Merc 280"            "Merc 280C"           "Merc 450SE"         
+## [13] "Merc 450SL"          "Merc 450SLC"         "Cadillac Fleetwood" 
+## [16] "Lincoln Continental" "Chrysler Imperial"   "Fiat 128"           
+## [19] "Honda Civic"         "Toyota Corolla"      "Toyota Corona"      
+## [22] "Dodge Challenger"    "AMC Javelin"         "Camaro Z28"         
+## [25] "Pontiac Firebird"    "Fiat X1-9"           "Porsche 914-2"      
+## [28] "Lotus Europa"        "Ford Pantera L"      "Ferrari Dino"       
+## [31] "Maserati Bora"       "Volvo 142E"
+```
+
+---
+## Accessing Columns in Data Frames
+
+**Like with matrices, we can use `[]` to designate a column.** But it is not a good coding practice to use numbers within the brackets. If our data frame gets rearranged, our code would be wrong. Instead, we use column names as follows:
+
+
+```r
+mpg &lt;- mtcars[,"mpg"] # a numeric vector
+class(mpg)
+```
+
+```
+## [1] "numeric"
+```
+
+```r
+mpg &lt;- mtcars["mpg"]  # a data.frame with just one column
+class(mpg)
+```
+
+```
+## [1] "data.frame"
+```
+
+---
+## Accessing Rows in Data Frames
+
+**We can also use brackets to get particular rows.** Note here, we need to put the row name before a comma. And it returns a data.frame.
+
+
+```r
+ferrari.dino &lt;- mtcars["Ferrari Dino",] # a data.frame with just one row
+class(ferrari.dino)
+```
+
+```
+## [1] "data.frame"
+```
+
+---
+## Subsetting Rows
+
+We can also get multiple rows:
+
+
+```r
+# First I will create a vector that includes all Mazdas
+Mazdas &lt;- c("Mazda RX4","Mazda RX4 Wag")
+
+# Then I will subset the data frame to the Mazdas 
+mtcars.Mazdas &lt;- mtcars[Mazdas,]
+
+# Print
+print(mtcars.Mazdas)
+```
+
+```
+##               mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4      21   6  160 110  3.9 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4
+```
+
+---
+## More Advanced Row Subsetting
+
+Let's get all the Mercedes without having to type them out.
+
+
+```r
+# Get the first four characters of the row names 
+sub4 &lt;- substr(rownames(mtcars),1,4)
+# Create a logical vector that is equal to TRUE when sub4 is equal to "Merc"
+is.Merc &lt;- sub4=="Merc"
+# Check
+is.Merc
+```
+
+```
+##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE
+## [13]  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+```
+
+```r
+# Make a new data frame that is just the rows for Mercedes cars
+mtcars.Mercedes &lt;- mtcars[is.Merc,]
+# Print
+mtcars.Mercedes
+```
+
+```
+##              mpg cyl  disp  hp drat   wt qsec vs am gear carb
+## Merc 240D   24.4   4 146.7  62 3.69 3.19 20.0  1  0    4    2
+## Merc 230    22.8   4 140.8  95 3.92 3.15 22.9  1  0    4    2
+## Merc 280    19.2   6 167.6 123 3.92 3.44 18.3  1  0    4    4
+## Merc 280C   17.8   6 167.6 123 3.92 3.44 18.9  1  0    4    4
+## Merc 450SE  16.4   8 275.8 180 3.07 4.07 17.4  0  0    3    3
+## Merc 450SL  17.3   8 275.8 180 3.07 3.73 17.6  0  0    3    3
+## Merc 450SLC 15.2   8 275.8 180 3.07 3.78 18.0  0  0    3    3
+```
+
+---
+## Using $ to Access Columns
+
+**We can also use $ to refer to columns/variables.**
+
+
+```r
+# The object mpg is being assigned the column named "mpg"
+mpg &lt;- mtcars$mpg
+
+# Let's look at the mean value of mpg
+mean(mpg)
+```
+
+```
+## [1] 20.09062
+```
+
+---
+## Creating a New Column
+
+We can also use this approach to add columns to a data frame. In the example below, we create a new column `kpg` that converts miles per gallon (`mpg`) to kilometers per gallon.
+
+
+```r
+# note since we are adding something new, rather than changing or deleting, it is fine to keep the same object name for this change
+mtcars$kpg &lt;- mtcars$mpg * 1.6
+head(mtcars)
+```
+
+```
+##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb   kpg
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4 33.60
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4 33.60
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1 36.48
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1 34.24
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2 29.92
+## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1 28.96
+```
+
+---
+## Reading and Writing Data Files
+
+### .RData (or .Rda) files
+
+-   .RData files can store multiple R objects. Sometimes data files are stored as .rds files, which only store a single object.
+
+-   After loading, the objects contained in the .RData file will be available in your R environment with their original names.
+
+
+```r
+load("data/SleepStudy.Rda")  # Load a .RData file
+# save(my.object, file = "path/output.Rda")  # Save as .RData
+```
+
+---
+## Reading and Writing Data Files
+### .csv files or .txt files
+
+A common way to import external data into R is from a CSV file. Use the read.csv() function.
+
+
+```r
+#data &lt;- read.csv("path/file.csv")
+# write.csv(my.data, "path/output.csv")  # Write to a .csv file
+```
+
+For plain text files, use read.table() or readLines():
+
+
+```r
+# data &lt;- read.table("path/file.txt", header = TRUE)
+# lines &lt;- readLines("path/file.txt")
+# write.table(my.data, "path/output.txt", row.names = FALSE)
+```
+
+---
+## Tips
+
+-   File Paths: File paths can be absolute or relative.
+    -   Absolute paths specify the exact location on your computer.
+    -   Relative paths are relative to your current working directory in R.
+    -   **We set up R Studio so that it should be easy to use relative paths!**
+
+-   Working Directory: 
+    -   Use `getwd()` to find your current working directory
+    -   Use `setwd("path/to/directory")` to change it.
+    -   **But we set up R Studio so that if you `.Rproj` is loaded, your current working directory is set.**
+
+-   Viewing Data: After reading a file, use head(data) to view the first few lines of your data frame.
+
+-   Handling Errors: If R can't read your file, check for typos in the file path and ensure the file format is correct.
+
+---
+
+.centered[
+# Data Science Essentials: Who is in my data? 
+]
+
+---
+## Who is in my data?
+
+- When you analyze a dataset, it's crucial to understand **who is represented** in the data.
+- Are certain groups over- or under-represented?
+- Does the dataset reflect a diverse population or a narrow segment?
+- This influences the generalizability of your conclusions.
+
+**Key questions to ask:**
+- Where did the data come from?
+- How were the data collected? 
+- Who is missing from the data?
+- What is the underlying population this data represents?
+
+---
+## What is Selection Bias?
+
+- **Selection Bias** occurs when the individuals or entities in your dataset are not representative of the larger population.
+- This can happen due to:
+  - The way data is collected (e.g., only people with internet access participate in an online survey).
+  - The incentives for people to respond (e.g., only those with strong opinions might answer).
+
+**Potential Result**: Skewed analysis that does not reflect reality.
+
+---
+## Types of Selection Bias
+
+-   **Sample Selection Bias**: Certain groups are more likely to be included in the sample (e.g., a health survey conducted online excludes those without internet).
+
+
+-   **Exclusion Bias**: Certain groups are systematically excluded (e.g., User experience feedback on a new app is gathered only from iPhone users, excluding Android users and potentially missing issues that may be more prevalent on the Android platform).
+
+
+-   **Nonresponse Bias**: Those who do not respond may differ significantly from those who do (e.g., people who do not care about politics ignore political polls).
+
+
+-   **Survivorship Bias**: Only those who "survived" a process are included (e.g., a study of successful businesses ignores all the failed ones).
+
+---
+## Discussion Example
+
+**Scenario**:
+- You are given a dataset from an online retail company analyzing customer satisfaction.
+- The data was collected through an email survey sent to all customers who made a purchase in the last year.
+- 50% of recipients responded.
+
+**Questions for discussion**:
+- Who might be missing from this dataset?
+- How might the non-responders differ from the responders?
+- What type of selection bias could this lead to?
+- Can we generalize the findings to all customers?
+
+---
+.centered[
+# Intro to Basic Coding Tasks With ChatGPT
+]
+
+---
+## What is ChatGPT?
+
+-   ChatGPT is an AI-powered chatbot developed by OpenAI.
+-   It can answer questions, provide explanations, and help with tasks by generating text-based responses based on user inputs.
+-   It’s like having an assistant who can give suggestions, examples, and explanations on a wide range of topics, including coding.
+-   ChatGPT can help learn coding in R by providing guidance, debugging assistance, and explanations in plain language.
+
+---
+## How is AI Changing Coding?
+
+-   AI tools like ChatGPT are transforming how people code by offering real-time support.
+-   Coders now have an interactive helper that can provide solutions, documentation, and debugging assistance.
+-   AI helps beginners by reducing the frustration of searching for help online or deciphering complex documentation.
+-   It allows coders to focus on strategic thinking and problem-solving rather than getting stuck on syntax or errors.
+
+---
+## What Are the Risks? 
+
+-   AI isn’t perfect: sometimes the suggestions may be incorrect, out-of-date, or inefficient.
+-   Over-reliance on AI may lead to learning gaps — you might accept solutions without fully understanding them.
+-   It’s important to verify that AI-generated code meets your specific needs and complies with best practices.
+-   ChatGPT doesn’t always know the context of your coding, which can lead to misunderstandings in the code it suggests.
+
+---
+## How Can ChatGPT Help Us Learn to Code as Beginners?
+
+-   ChatGPT can make coding more approachable by breaking down complex ideas into simple language.
+-   It provides instant feedback: if you’re unsure about a task or concept, you can ask for clarification immediately.
+-   You can use it to practice coding by generating examples, asking it to check your code, or requesting explanations.
+-   The goal is to help you build confidence as you experiment with R, allowing you to take the lead in problem-solving while ChatGPT supports you.
+
+
+---
+## Three Simple Use Cases
+
+1. Documentation and examples
+
+-   Stuck on how to use a function? Ask ChatGPT to provide documentation and example code.
+-   Recipe: “**How do I use base R to** [ENTER TASK, FOR EXAMPLE: find the mean of a numeric vector?]. **Explain the code in simple terms for someone who is learning R at an introductory level.**”
+
+2. Explaining what code does
+-   Unsure what a line of code is doing? Ask ChatGPT to explain it in plain language.
+-   Recipe: “**In plain English, for someone who is learning R at an introductory level, what does the following code do?** [PASTE CODE - FOR NOW, I RECOMMEND JUST A SINGLE LINE OR JUST A FEW LINES OF CODE]”
+
+3. Debugging code
+-   Encountered an error message? Paste your code and the error message into ChatGPT for debugging help.
+-   Recipe: “**When I run the following code:** [PASTE LINE OF CODE - FOR NOW AGAIN, JUST PROVIDE A SINGLE LINE OF CODE OR MAYBE JUST A FEW], "**I get the following error:** [PASTE ERROR MESSAGE]"
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"slideNumberFormat": "%current%",
+"highlightStyle": "github",
+"highlightLines": true,
+"ratio": "16:9",
+"countIncrementalSlides": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,232 @@
+---
+title: "Class #3: Data Frames in Base R"
+output:
+   xaringan::moon_reader:
+execute: 
+  echo: true
+  size: scriptsize
+header-includes:
+  # Adjusting output size
+  - \AtBeginEnvironment{verbatim}{\scriptsize}
+  
+  # Adjusting code chunk size using 'listings'
+  - \usepackage{listings}
+  - \lstset{basicstyle=\scriptsize\ttfamily,breaklines=true}
+---
+
+## Reminder to Start Zoom Recording
+
+## Announcements & Reminders
+
+-   Attendance important & cameras on please
+-   Six Ways to Get Help & Course Collaboration Leaders
+-   Moodle & assignments debrief
+-   Joing the class late? Please reach out to me.
+
+---
+title: "Introduction to Base R"
+format: beamer
+---
+
+## Base R: What Beginners Need to Know
+
+### What is Base R?
+
+-   **Base R** refers to the core set of functions, data types, and utilities included with the default R installation.
+-   It provides essential tools for working with vectors, data frames, lists, and matrices, as well as basic **data manipulation**, **statistics**, and **plotting** functions.
+
+## Alternatives to Base R
+
+-   **Tidyverse**: A collection of packages designed for more intuitive data manipulation and visualization. Syntax is often cleaner for larger data workflows. (**We will learn this next.**)
+-   **Data.table**: A faster alternative to Base R data frames, optimized for large datasets. (**Beyond scope of class.**)
+-   **Matrix-specific Packages**: For large numerical datasets, for efficient matrix operations. (**Beyond scope of class.**)
+
+## Why Learn Base R?
+
+-   Provides a **strong foundation**: Most R packages build upon the principles of Base R, so understanding it helps you with advanced techniques.
+-   **Lightweight**: Base R functions are fast and simple for smaller or less complex tasks.
+-   **Always available**: Base R is built-in, meaning you don’t need to install any additional packages.
+
+## Some syntax and terminology (mostly a review)
+
+-   An R **object** can store different types of data, such as:
+    -   **Numbers** (e.g., `10`, `3.14`)
+    -   **Text** (e.g., `"Hello"`, `"R is fun!"`)
+    -   **Vectors** (e.g., a list of numbers or text)
+    -   **Data Frames** (e.g., tables of data)
+-   We assign values to objects using the <- operator or =. 
+    - Tip: <- is very much preferred, but = also works.
+
+```{r}
+my_number <- 42
+my_text = "Data Science is awesome!"
+```
+- R **functions** are commands that perform specific tasks in R. 
+  -   A function takes *input* (called arguments) and returns *output*.
+  -   You can pass objects as inputs into functions to operate on them.
+  -   Some functions inspect objects by telling us info about it.
+  
+```{r}
+# Use the 'c()' function to create a vector of numbers
+numbers <- c(1, 2, 3)  
+# Use the `sum()` function to sum across the vector
+total <- sum(numbers)
+# Inspect the object
+class(numbers)
+```
+
+## Overview of Data Frames in Base R
+
+A data frame is a two-dimensional table-like structure that can hold **columns of different types** (e.g., numeric, character, and logical).
+
+Each column in a data frame is a vector, and the length of each vector (number of rows) must be the same across all columns.
+
+## Built-in Data Frames in R
+
+We use a R package in base R called `datasets` to access built-in toy data frames.
+
+```{r}
+# List all datasets from the 'datasets' package
+data(package="datasets")
+```
+
+## Viewing the Data Frame
+
+Let's inspect the data frame `mtcars` by looking at the first 6 rows using the function `head()`:
+
+```{r mtcars_head}
+head(mtcars)
+```
+
+Let's look at the structure of the data frame using `str()`:
+
+```{r mtcars_str}
+str(mtcars)
+```
+
+## Column and Row Names
+
+```{r rowNames}
+colnames(mtcars)
+rownames(mtcars)
+```
+
+## Accessing Columns in Data Frames
+
+**Like with matrices, we can use `[]` to designate a column.** But it is not a good coding practice to use numbers within the brackets. If our data frame gets rearranged, our code would be wrong. Instead, we use column names as follows:
+
+```{r getcolumn}
+mpg <- mtcars[,"mpg"] # a numeric vector
+class(mpg)
+mpg <- mtcars["mpg"]  # a data.frame with just one column
+class(mpg)
+```
+
+## Accessing Rows in Data Frames
+
+**We can also use brackets to get particular rows.** Note here, we need to put the row name before a comma. And it returns a data.frame.
+
+```{r getrow}
+ferrari.dino <- mtcars["Ferrari Dino",] # a data.frame with just one row
+class(ferrari.dino)
+```
+
+## Subsetting Rows
+
+We can also get multiple rows:
+
+```{r getmultrows}
+# First I will create a vector that includes all Mazdas
+Mazdas <- c("Mazda RX4","Mazda RX4 Wag")
+
+# Then I will subset the data frame to the Mazdas 
+mtcars.Mazdas <- mtcars[Mazdas,]
+
+# Print
+print(mtcars.Mazdas)
+```
+
+## More Advanced Row Subsetting
+
+Let's get all the Mercedes without having to type them out.
+
+```{r getmultrows_substr}
+# Get the first four characters of the row names 
+sub4 <- substr(rownames(mtcars),1,4)
+# Create a logical vector that is equal to TRUE when sub4 is equal to "Merc"
+is.Merc <- sub4=="Merc"
+# Check
+is.Merc
+# Make a new data frame that is just the rows for Mercedes cars
+mtcars.Mercedes <- mtcars[is.Merc,]
+# Print
+mtcars.Mercedes
+```
+
+## Using \$ to Access Columns
+
+**We can also use "data.frame.name\$" to refer to columns/variables.**
+
+```{r showdollarsign}
+# The object mpg is being assigned the column names "mpg"
+mpg <- mtcars$mpg
+# Let's look at the mean value of mpg
+mean(mpg)
+```
+
+## Creating a New Column
+
+We can also use this approach to add columns to a data frame. In the example below, we create a new column `kpg` that converts miles per gallon (`mpg`) to kilometers per gallon.
+
+```{r createcol}
+# note since we are adding something new, rather than changing or deleting, it is fine to keep the same object name for this change
+mtcars$kpg <- mtcars$mpg * 1.6
+head(mtcars)
+```
+
+## Reading and Writing Data Files
+
+### .RData (or .Rda) files
+
+-   .RData files can store multiple R objects. Sometimes data files are stored as .rds files, which only store a single object.
+
+-   After loading, the objects contained in the .RData file will be available in your R environment with their original names.
+
+```{r loadSleepStudy}
+load("data/SleepStudy.Rda")  # Load a .RData file
+# save(my.object, file = "path/output.Rda")  # Save as .RData
+```
+
+### .csv files or .txt files
+
+A common way to import external data into R is from a CSV file. Use the read.csv() function.
+
+```{r showcsv}
+#data <- read.csv("path/file.csv")
+# write.csv(my.data, "path/output.csv")  # Write to a .csv file
+
+```
+
+For plain text files, use read.table() or readLines():
+
+```{r showtxt}
+# data <- read.table("path/file.txt", header = TRUE)
+# lines <- readLines("path/file.txt")
+# write.table(my.data, "path/output.txt", row.names = FALSE)
+```
+
+## Tips
+
+-   File Paths: File paths can be absolute or relative.
+    -   Absolute paths specify the exact location on your computer.
+    -   Relative paths are relative to your current working directory in R.
+    -   **We set up R Studio so that it should be easy to use relative paths!**
+
+-   Working Directory: 
+    -   Use `getwd()` to find your current working directory
+    -   Use `setwd("path/to/directory")` to change it.
+    -   **But we set up R Studio so that if you `.Rproj` is loaded, your current working directory is set.**
+
+-   Viewing Data: After reading a file, use head(data) to view the first few lines of your data frame.
+
+-   Handling Errors: If R can't read your file, check for typos in the file path and ensure the file format is correct.

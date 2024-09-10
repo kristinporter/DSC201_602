@@ -1,0 +1,23 @@
+---
+title: "Test"
+author: "me"
+format: beamer
+editor: visual
+---
+
+## Slide 1: Introduction
+
+This is some introductory text that will appear on the first slide.
+
+```{r}
+# This is an R code chunk that will run and show its output on the slide
+summary(cars)
+```
+
+
+
+### Transition from R Notebooks and Jupyter:
+- If you’re already familiar with R notebooks and Jupyter, this should feel familiar. You’re just writing everything in **one Quarto file** (`.qmd`), where the structure resembles Markdown, and Quarto handles the rendering (e.g., into slides, PDFs, or documents).
+  
+Would you like to see how you could directly use your R notebook or Jupyter code in Quarto?
+

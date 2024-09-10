@@ -1,0 +1,441 @@
+---
+title: "DSC 201_602: Class 3"
+author: "Kristin Porter"
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=9, fig.height=3.5, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = TRUE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+)
+```
+
+```{css, echo=FALSE}
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(base_color = "#23395b",text_font_size=24)
+```
+
+## Agenda
+ 1. Housekeeping (3 minutes)
+ 2. Overview of Base R (2 minutes)
+ 3. Very quick review of R basics (5 minutes)
+ 4. Data Frames in Base R (15-20 minutes)
+ 5. Data Science Essentials: **Who is in my data?** (10-15 minutes)
+ 5. Intro to ChatGPT for very simple coding tasks (10 minutes)
+
+
+---
+.centered[
+# Housekeeping
+]
+---
+## Reminder to Start Zoom Recording
+
+---
+## Announcements & Reminders
+
+-   Attendance important & cameras on please
+
+
+-   Six Ways to Get Help & Course Collaboration Leaders
+
+
+-   Moodle & assignments debrief
+
+
+-   Joing the class late? Please reach out to me.
+
+
+---
+.centered[
+# Overview of Base R
+]
+
+---
+## What is Base R?
+
+-   **Base R** refers to the core set of functions, data types, and utilities included with the default R installation.
+
+
+-   It provides essential tools for working with vectors, matrices, data frames, and lists (which we will learn about later), as well as basic **data manipulation**, **statistics**, and **plotting** functions.
+
+-   Beyond Base R, coding in R relies on a vast number of **packages** (or **libraries**) that are contributed by R users all over the world. All these packages are free and can be used by anyone. We will learn about how to install and use packages next week, and we will dive deeply into a package called `dplyr`, which provides alternative approaches to what we are learning today. 
+
+---
+## Alternatives to Base R
+
+-   **Tidyverse**: A collection of packages designed for more intuitive data manipulation and visualization. Syntax is often cleaner for larger data workflows. (**`dplyr`, which we will learn next week is part of this collection.**)
+  
+
+-   **Data.table**: A faster alternative to Base R data frames, optimized for large datasets. (**Beyond scope of class.**)
+
+
+-   **Matrix-specific Packages**: For large numerical datasets, for efficient matrix operations. (**Beyond scope of class.**)
+
+---
+## Why Learn Base R?
+
+-   **Provides a strong foundation**: Most R packages build upon the principles of Base R, so understanding it helps you with advanced techniques.
+
+
+-   **Lightweight**: Base R functions are fast and simple for smaller or less complex tasks.
+
+
+-   **Always available**: Base R is built-in, meaning you don’t need to install any additional packages.
+
+---
+.centered[
+# Very Quick Review
+]
+
+---
+## Some syntax and terminology (mostly a review)
+
+-   An R **object** can store different types of data, such as:
+    -   **Numbers** (e.g., `10`, `3.14`)
+    -   **Text** (e.g., `"Hello"`, `"R is fun!"`)
+    -   **Vectors** (e.g., a list of numbers or text)
+    -   **Matrices** (e.g., a table of rows and columns of the same data type)
+    -   **Data Frames** (e.g., a table of rows and columns of different data types)
+
+
+-   We assign values to objects using the <- operator or =. 
+    - Tip: <- is very much preferred, but = also works.
+
+```{r}
+my_number <- 42
+my_text <- "Data Science is awesome!"
+```
+---
+## Some syntax and terminology (mostly a review)
+
+- R **functions** are commands that perform specific tasks in R. 
+  -   A function takes *input* (called arguments) and returns *output*.
+  -   You can pass objects as inputs into functions to operate on them.
+  -   Some functions inspect objects by telling us info about it.
+  
+```{r}
+# Use the 'c()' function to create a vector of numbers
+numbers <- c(1, 2, 3)  
+# Use the `sum()` function to sum across the vector
+total <- sum(numbers)
+# Inspect the object
+class(numbers)
+```
+
+---
+.centered[
+# Data Frames in Base R
+]
+
+---
+## Overview of Data Frames in Base R
+
+A data frame is a two-dimensional table-like structure that can hold **columns of different types** (e.g., numeric, character, and logical).
+
+Each column in a data frame is a vector, and the length of each vector (number of rows) must be the same across all columns.
+
+---
+## Built-in Data Frames in R
+
+We use a R package in base R called `datasets` to access built-in toy data frames.
+
+```{r}
+# List all datasets from the 'datasets' package
+data(package="datasets")
+```
+
+When you run the above code chunk, it will open a new tab in R Studio, which lists all of the datasets and a brief description. 
+
+---
+## Viewing the Data Frame
+
+Let's inspect the data frame `mtcars` by looking at the first 6 rows using the function `head()`:
+
+```{r mtcars_head}
+head(mtcars)
+```
+
+Let's look at the structure of the data frame using `str()`:
+
+```{r mtcars_str}
+str(mtcars)
+```
+
+---
+## Column and Row Names
+
+```{r rowNames}
+colnames(mtcars)
+rownames(mtcars)
+```
+
+---
+## Accessing Columns in Data Frames
+
+**Like with matrices, we can use `[]` to designate a column.** But it is not a good coding practice to use numbers within the brackets. If our data frame gets rearranged, our code would be wrong. Instead, we use column names as follows:
+
+```{r getcolumn}
+mpg <- mtcars[,"mpg"] # a numeric vector
+class(mpg)
+mpg <- mtcars["mpg"]  # a data.frame with just one column
+class(mpg)
+```
+
+---
+## Accessing Rows in Data Frames
+
+**We can also use brackets to get particular rows.** Note here, we need to put the row name before a comma. And it returns a data.frame.
+
+```{r getrow}
+ferrari.dino <- mtcars["Ferrari Dino",] # a data.frame with just one row
+class(ferrari.dino)
+```
+
+---
+## Subsetting Rows
+
+We can also get multiple rows:
+
+```{r getmultrows}
+# First I will create a vector that includes all Mazdas
+Mazdas <- c("Mazda RX4","Mazda RX4 Wag")
+
+# Then I will subset the data frame to the Mazdas 
+mtcars.Mazdas <- mtcars[Mazdas,]
+
+# Print
+print(mtcars.Mazdas)
+```
+
+---
+## More Advanced Row Subsetting
+
+Let's get all the Mercedes without having to type them out.
+
+```{r getmultrows_substr}
+# Get the first four characters of the row names 
+sub4 <- substr(rownames(mtcars),1,4)
+# Create a logical vector that is equal to TRUE when sub4 is equal to "Merc"
+is.Merc <- sub4=="Merc"
+# Check
+is.Merc
+# Make a new data frame that is just the rows for Mercedes cars
+mtcars.Mercedes <- mtcars[is.Merc,]
+# Print
+mtcars.Mercedes
+```
+
+---
+## Using $ to Access Columns
+
+**We can also use $ to refer to columns/variables.**
+
+```{r showdollarsign}
+# The object mpg is being assigned the column named "mpg"
+mpg <- mtcars$mpg
+
+# Let's look at the mean value of mpg
+mean(mpg)
+```
+
+---
+## Creating a New Column
+
+We can also use this approach to add columns to a data frame. In the example below, we create a new column `kpg` that converts miles per gallon (`mpg`) to kilometers per gallon.
+
+```{r createcol}
+# note since we are adding something new, rather than changing or deleting, it is fine to keep the same object name for this change
+mtcars$kpg <- mtcars$mpg * 1.6
+head(mtcars)
+```
+
+---
+## Reading and Writing Data Files
+
+### .RData (or .Rda) files
+
+-   .RData files can store multiple R objects. Sometimes data files are stored as .rds files, which only store a single object.
+
+-   After loading, the objects contained in the .RData file will be available in your R environment with their original names.
+
+```{r loadSleepStudy}
+load("data/SleepStudy.Rda")  # Load a .RData file
+# save(my.object, file = "path/output.Rda")  # Save as .RData
+```
+
+---
+## Reading and Writing Data Files
+### .csv files or .txt files
+
+A common way to import external data into R is from a CSV file. Use the read.csv() function.
+
+```{r showcsv}
+#data <- read.csv("path/file.csv")
+# write.csv(my.data, "path/output.csv")  # Write to a .csv file
+
+```
+
+For plain text files, use read.table() or readLines():
+
+```{r showtxt}
+# data <- read.table("path/file.txt", header = TRUE)
+# lines <- readLines("path/file.txt")
+# write.table(my.data, "path/output.txt", row.names = FALSE)
+```
+
+---
+## Tips
+
+-   File Paths: File paths can be absolute or relative.
+    -   Absolute paths specify the exact location on your computer.
+    -   Relative paths are relative to your current working directory in R.
+    -   **We set up R Studio so that it should be easy to use relative paths!**
+
+-   Working Directory: 
+    -   Use `getwd()` to find your current working directory
+    -   Use `setwd("path/to/directory")` to change it.
+    -   **But we set up R Studio so that if you `.Rproj` is loaded, your current working directory is set.**
+
+-   Viewing Data: After reading a file, use head(data) to view the first few lines of your data frame.
+
+-   Handling Errors: If R can't read your file, check for typos in the file path and ensure the file format is correct.
+
+---
+
+.centered[
+# Data Science Essentials: Who is in my data? 
+]
+
+---
+## Who is in my data?
+
+- When you analyze a dataset, it's crucial to understand **who is represented** in the data.
+- Are certain groups over- or under-represented?
+- Does the dataset reflect a diverse population or a narrow segment?
+- This influences the generalizability of your conclusions.
+
+**Key questions to ask:**
+- Where did the data come from?
+- How were the data collected? 
+- Who is missing from the data?
+- What is the underlying population this data represents?
+
+---
+## What is Selection Bias?
+
+- **Selection Bias** occurs when the individuals or entities in your dataset are not representative of the larger population.
+- This can happen due to:
+  - The way data is collected (e.g., only people with internet access participate in an online survey).
+  - The incentives for people to respond (e.g., only those with strong opinions might answer).
+
+**Potential Result**: Skewed analysis that does not reflect reality.
+
+---
+## Types of Selection Bias
+
+-   **Sample Selection Bias**: Certain groups are more likely to be included in the sample (e.g., a health survey conducted online excludes those without internet).
+
+
+-   **Exclusion Bias**: Certain groups are systematically excluded (e.g., User experience feedback on a new app is gathered only from iPhone users, excluding Android users and potentially missing issues that may be more prevalent on the Android platform).
+
+
+-   **Nonresponse Bias**: Those who do not respond may differ significantly from those who do (e.g., people who do not care about politics ignore political polls).
+
+
+-   **Survivorship Bias**: Only those who "survived" a process are included (e.g., a study of successful businesses ignores all the failed ones).
+
+---
+## Discussion Example
+
+**Scenario**:
+- You are given a dataset from an online retail company analyzing customer satisfaction.
+- The data was collected through an email survey sent to all customers who made a purchase in the last year.
+- 50% of recipients responded.
+
+**Questions for discussion**:
+- Who might be missing from this dataset?
+- How might the non-responders differ from the responders?
+- What type of selection bias could this lead to?
+- Can we generalize the findings to all customers?
+
+---
+.centered[
+# Intro to Basic Coding Tasks With ChatGPT
+]
+
+---
+## What is ChatGPT?
+
+-   ChatGPT is an AI-powered chatbot developed by OpenAI.
+-   It can answer questions, provide explanations, and help with tasks by generating text-based responses based on user inputs.
+-   It’s like having an assistant who can give suggestions, examples, and explanations on a wide range of topics, including coding.
+-   ChatGPT can help learn coding in R by providing guidance, debugging assistance, and explanations in plain language.
+
+---
+## How is AI Changing Coding?
+
+-   AI tools like ChatGPT are transforming how people code by offering real-time support.
+-   Coders now have an interactive helper that can provide solutions, documentation, and debugging assistance.
+-   AI helps beginners by reducing the frustration of searching for help online or deciphering complex documentation.
+-   It allows coders to focus on strategic thinking and problem-solving rather than getting stuck on syntax or errors.
+
+---
+## What Are the Risks? 
+
+-   AI isn’t perfect: sometimes the suggestions may be incorrect, out-of-date, or inefficient.
+-   Over-reliance on AI may lead to learning gaps — you might accept solutions without fully understanding them.
+-   It’s important to verify that AI-generated code meets your specific needs and complies with best practices.
+-   ChatGPT doesn’t always know the context of your coding, which can lead to misunderstandings in the code it suggests.
+
+---
+## How Can ChatGPT Help Us Learn to Code as Beginners?
+
+-   ChatGPT can make coding more approachable by breaking down complex ideas into simple language.
+-   It provides instant feedback: if you’re unsure about a task or concept, you can ask for clarification immediately.
+-   You can use it to practice coding by generating examples, asking it to check your code, or requesting explanations.
+-   The goal is to help you build confidence as you experiment with R, allowing you to take the lead in problem-solving while ChatGPT supports you.
+
+
+---
+## Three Simple Use Cases
+
+1. Documentation and examples
+
+-   Stuck on how to use a function? Ask ChatGPT to provide documentation and example code.
+-   Recipe: “**How do I use base R to** [ENTER TASK, FOR EXAMPLE: find the mean of a numeric vector?]. **Explain the code in simple terms for someone who is learning R at an introductory level.**”
+
+2. Explaining what code does
+-   Unsure what a line of code is doing? Ask ChatGPT to explain it in plain language.
+-   Recipe: “**In plain English, for someone who is learning R at an introductory level, what does the following code do?** [PASTE CODE - FOR NOW, I RECOMMEND JUST A SINGLE LINE OR JUST A FEW LINES OF CODE]”
+
+3. Debugging code
+-   Encountered an error message? Paste your code and the error message into ChatGPT for debugging help.
+-   Recipe: “**When I run the following code:** [PASTE LINE OF CODE - FOR NOW AGAIN, JUST PROVIDE A SINGLE LINE OF CODE OR MAYBE JUST A FEW], "**I get the following error:** [PASTE ERROR MESSAGE]"
+
+
