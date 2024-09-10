@@ -3,6 +3,8 @@ title: "Coding Assignment 3"
 output: pdf_document
 ---
 
+THIS IS NOT FINALIZED YET. IT WILL BE POSTED IN FINAL FORM ON 9/10
+
 # Overview
 
 For this assignment, you will work with data from a sleep study. The data were obtained from a sample of college students who did skills tests to measure cognitive function, completed a survey about attitudes and habits, and kept a sleep diary to record time and quality of sleep over a two week period. The documentation for the data can be found [here](https://www.rdocumentation.org/packages/Lock5withR/versions/1.2.2/topics/SleepStudy). Note that the documentation is not entirely accurate, but it should still provide sufficient guidance for our purposes.
