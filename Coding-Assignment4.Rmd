@@ -13,7 +13,7 @@ As before, run the following chunk to load `SleepStudy.Rda`. This will load the 
 load("data/SleepStudy.Rda")
 ```
 
-**(1) In the following code chunk, keep the library statement. This loads the `dplyr` package. In this code chunk, convert the data frame to a tibble. Then get a summary description of the data using `glimpse()`. [1 POINT]**
+**(1) In the following code chunk, keep the library statement. This loads the `dplyr` package. In this code chunk, convert the data frame to a tibble called `SleepTibble`. Then get a summary description of the data using `glimpse()`. [1 POINT]**
 
 ```{r makeTibble}
 library(dplyr)
@@ -27,29 +27,27 @@ SleepTibble <-
 
 ## Filtering
 
-Filtering produces a subset of data. It serves at least two important purposes. First, if a dataset includes extraneous cases, filtering removes the irrelevant ones. This is sometimes called scoping—reducing the scope of the investigation—or focusing. Also, filtering may be used in order to reduce the complexity or quantity of data in order to gain insight. (Largely copied from Erickson et. al., 2019)
+Filtering produces a subset of data. It serves at least two important purposes. First, if a dataset includes extraneous cases, filtering removes the irrelevant ones. This is sometimes called scoping—reducing the scope of the investigation—or focusing. Also, filtering may be used in order to reduce the complexity or quantity of data in order to gain insight. (Largely copied from Erickson et. al., 2019) We learned several `dplyr` functions/verbs that do filtering. Note that filtering does operations on rows. 
 
-In R-Notebook3.Rmd, we learned several `dplyr` functions/verbs that do filtering. Note that filtering does operations on rows. 
+**(2) Filter the sleep study tibble in a way that reduces reduce your rows according to some criteria, following the steps below:** 
 
-**(2) Filter the sleep study tibble in two different ways. That is, use two different `dplyr` functions/verbs or use the same function/verb twice to reduce your rows according to two different criteria. For each of the two ways:** **[3 POINTS FOR EACH WAY]**
+-   Before producing the code, write 1-3 sentences describing the filtering you are doing and how such filtering may be helpful in gaining insights from the data. For example, "I am creating a reduced data set that includes only students who have a normal stress level (for whom the variable `Stress` is equal to "normal"). This would allow me to analyze sleep patterns among students who have normal stress-levels." [1 POINT]
 
--   Write 1-3 sentences describing the filtering you are doing and how such filtering may be helpful in gaining insights from the data. For example, "I am creating a reduced data set that includes only students who have a normal stress level (for whom the variable `Stress` is equal to "normal"). This would allow me to analyze sleep patterns among students who have normal stress-levels." You do not need to implement what the filtering would allow you to do - just talk about it like in my example. [1 POINT]
+-   Create a code chunk and use a `dplyr` function/verb to do the filtering. Create a data frame (name as you choose) to hold the new, filtered data (the revised version of `SleepStudy`). [1 POINT]
 
--   Create a code chunk and use a `dplyr` function/verb to do the filtering. Create a data frame (name as you choose) to hold the new, filtered data (the revised version of `SleepStudy`). If you are not sure what code to write or cannot get it to work, partial credit will be give for writing text of what coding you are attempting to do. [1 POINT]
-
--   Write 1-2 lines of code that will display results that help you check if your filtering worked as you expected. This may be a print or some other display. If you decide to print data, limit your print to a subset of rows and columns so that you can view the entire display on your screen. You have an example of this in the last homework. You do not have to use `dplyr` for the check. If you are not sure what code to write, partial credit will be give for writing text of what you think would be helpful. [1 POINT]
+-   Write 1-2 lines of code that will display results that help you check if your filtering worked as you expected. This may be a print or some other display. If you decide to print data, *limit your print to a subset of rows and columns so that you can view the entire display on your screen.* You do not have to use `dplyr` for the check. [1 POINT]
 
 ## Grouping
 
-Grouping is typically used to set up a comparison among different subgroups of a dataset. Just as filtering restricts analysis to a single subset, grouping divides a dataset into multiple subsets. This division is guided by the available value(s) of some variable or variables so that, among the observations within each resulting group, the values of these “grouping” variables are the same. Note that "binning" is a special type of grouping that uses ranges of continuous values (bins or classes) to determine group membership. (Largely copied from Erickson et. al., 2019) Note that we learned about group in R-Notebook3.Rmd and remember that grouping does operations on rows. 
+Grouping is typically used to set up a comparison among different subgroups of a dataset. Just as filtering restricts analysis to a single subset, grouping divides a dataset into multiple subsets. This division is guided by the available value(s) of some variable or variables so that, among the observations within each resulting group, the values of these “grouping” variables are the same. Note that "binning" is a special type of grouping that uses ranges of continuous values (bins or classes) to determine group membership. (Largely copied from Erickson et. al., 2019) 
 
-**(3) Group the sleep study tibble in two different ways. That is, use two different `dplyr` functions/verbs or use the same function/verb twice to group your data according to two different criteria. For each of the two ways:** **[3 POINTS FOR EACH WAY]**
+**(3) Group the sleep study tibble by following these steps:** 
 
--   Write 1-3 sentences describing the grouping you are doing and how such grouping may be helpful in gaining insights from the data. For example, "I am grouping students by their gender. This would allow me to compare summary statistics by gender." You do not need to implement what the grouping would allow you to do (e.g. compare summary statistics by gender) - just talk about it like in my example. [1 POINT]
+-   Write 1-3 sentences describing the grouping you are doing and how such grouping may be helpful in gaining insights from the data. For example, "I am grouping students by their gender. This would allow me to compare summary statistics by gender." [1 POINT]
 
--   Create a code chunk and use a `dplyr` function/verb to do the grouping. Create a data frame (name as you choose) to hold the new, grouped data (the revised version of `SleepStudy`). If you are not sure what code to write or cannot get it to work, partial credit will be give for writing text of what coding you are attempting to do. [1 POINT]
+-   Create a code chunk and use a `dplyr` function/verb to do the grouping. Create a data frame (name as you choose) to hold the new, grouped data (the revised version of `SleepStudy`). [1 POINT]
 
--   Write 1-2 lines of code that will display some results that help you check if your grouping worked as you expected. This may be a print or some other display. But limit your print to a subset of rows and columns so that you can view the entire display on your screen. You do not have to use `dplyr` for the check. If you are not sure what code to write, partial credit will be give for writing text of what you think would be helpful. [1 POINT]
+-   Write 1-2 lines of code that will display some results that help you check if your grouping worked as you expected. This may be a print or some other display. You do not have to use `dplyr` for the check. [1 POINT]
 
 ## Summarizing
 
@@ -61,11 +59,11 @@ pattern. Note, though, that consolidation into simpler distinct categories leads
 reduction of information. For example, when a display shows only measures
 of center, variability is lost. (Largely copied from Erickson et. al., 2019)
 
-**(4) Summarize the sleep study tibble in two different ways. For one of them, combine summarizing with grouping. For each of the two ways:** **[3 POINTS FOR EACH WAY]**
+**(4) Summarize the sleep study tibble. Combine your summarizing with grouping. Follow these steps:** 
 
--   Write 1-3 sentences describing the summarizing you are doing and how such summarizing may be helpful in gaining insights from the data. For example, when grouping and summarizing, "I grouping students by whether they have an early class (whether the variable `EarlyClass==1`) and then computing the mean time that students go to bed on weekdays, by group (the mean of the variable `WeekdayBed`). This allows me to see if students who have an early class go to bed earlier on average." [1 POINT]
+-   Write 1-3 sentences describing the grouping and summarizing you are doing and how such summarizing may be helpful in gaining insights from the data. For example, "I am grouping students by whether they have an early class (whether the variable `EarlyClass==1`) and then computing the mean time that students go to bed on weekdays, by group (the mean of the variable `WeekdayBed`). This allows me to see if students who have an early class go to bed earlier on average." [1 POINT]
 
--  Create a code chunk and use a `dplyr` function/verb to do the summarizing. Create an object (name as you choose) to hold the summarized data (remember that the summary results are a small data frame, as we discussed in class). If you are not sure what code to write or cannot get it to work, partial credit will be give for writing text of what coding you are attempting to do. [1 POINT] 
+-  Create a code chunk and use a `dplyr` function/verb to do the summarizing. Create an object (name as you choose) to hold the summarized data (remember that the summary results are a small data frame, as we discussed in class). [1 POINT] 
 
 -   Write a sentence or two interpreting your results. [1 POINT]
 
@@ -73,24 +71,27 @@ of center, variability is lost. (Largely copied from Erickson et. al., 2019)
 
 Another data move is to create a new variable, often represented by a new
 column in a data table. Because this typically involves calculating the values
-in this new variable, this data move is called calculating by Erickson et. al. Others refer to calculating as “mutating” or “transforming.” Many new variables are calculated using the values from one or more
-existing variables, which is what you will do below. 
+in this new variable, this data move is called calculating by Erickson et. al. Others refer to calculating as “mutating” or “transforming.” Many new variables are calculated using the values from one or more existing variables, which is what you will do below. 
 
-**(5) Create two new variables in the data frame `SleepStudy`. Each new variable should be created as a calculation or transformation performed on one or more existing variables in `SleepStudy`.** **[6 POINTS TOTAL]**
+**(5) Create two new variables in the data frame `SleepStudy`. Each new variable should be created as a calculation or transformation performed on one or more existing variables in `SleepStudy`.** 
 
--   For each new variable, write 1-3 sentences defining it and how it may be helpful for other analyses or research questions about the data. For example, "I am creating a variable called `HighHappiness` which is equal to one if `Happiness` is greater than 26. This would allow me to group students by whether they have high happiness levels or not." You do not need to implement what the new variable would allow you to do (e.g. group students by their happiness) - just talk about it like in my example. [2 POINTS]
+-   For each new variable, write 1-3 sentences defining it and how it may be helpful for other analyses or research questions about the data. For example, "I am creating a variable called `HighHappiness` which is equal to one if `Happiness` is greater than 26. This would allow me to group students by whether they have high happiness levels or not." [1 POINT]
 
--   Use `dplyr` to create both new variables in one code chunk. Create a new data frame (name as you choose) to hold the new, expanded data (identical to `SleepStudy` but with two new variables). If you are not sure what code to write or cannot get it to work, partial credit will be give for writing text of what coding you are attempting to do. [2 POINTS]
+-   Use `dplyr` to create both new variables your just described in one code chunk. Create a new data frame (name as you choose) to hold the new, expanded data (identical to `SleepStudy` but with two new variables). [1 POINT]
 
--   Write 1-2 lines of code that will display some results that help you check if your grouping worked as you expected. This may be a print or some other display. But limit your print to a subset of rows and columns so that you can view the entire display on your screen. You do not have to use `dplyr` for the check. If you are not sure what code to write, partial credit will be give for writing text of what you think would be helpful. [2 POINTS]
-
-
-# Extra Credit
-
-In the last homework (Coding-Assignment3.Rmd Problem #6), you explored the question: Do students with insufficient sleep have lower GPA's than students with sufficient sleep? You used base R to follow steps to answer this question in a code chunk named `compareGPA`. For extra credit, create a code chunk and use `dplyr` to carry out the same analysis. That is, use ``dplyr`` to compute the GPA for students with insufficent sleep and the GPA for students with sufficient sleep. [2 POINTS] 
+-   Write 1-2 lines of code that will display some results that help you check if your grouping worked as you expected. This may be a print or some other display. You do not have to use `dplyr` for the check. [1 POINT]
 
 
-TOTAL OF 25 POINTS (27 POINTS POSSIBLE WITH EXTRA CREDIT)
+(6) In the last homework (Coding-Assignment3.Rmd), you explored the question: Do students with insufficient sleep have lower GPA's than students with sufficient sleep? You used base R to follow steps to answer this question in a code chunk named `compareGPA`. For extra credit, create a code chunk and use `dplyr` to carry out the same analysis. That is, use ``dplyr`` to compute the GPA for students with insufficent sleep and the GPA for students with sufficient sleep. [2 POINTS] 
+
+(7) With the assistance of ChatGPT:
+-     1. Use `dplyr` to count how many people in the data have each stress-level ("normal" or "high").
+-     2. Check your work by using a different approach to count how many people in the data have each stress-level. Use either another `dplyr` approach or base R. 
+
+Share your prompts and comment on what was helpful or what was confusing. [3 POINTS FOR COMPLETION, ALL ANSWERS OK.]
+
+
+TOTAL OF 20 POINTS 
 
 # References
 
