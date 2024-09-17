@@ -212,10 +212,22 @@ transformed_tibble
 
 Note when you're using across() within mutate() or summarize(), `.x` represents the data from the current column being processed. It's a way to refer to each element of the column(s) you're applying the function to.
 
+---
+## Documentation
+
+For more details on `dplyr` functions, with explanations and examples
+- https://dplyr.tidyverse.org/
+
+Note this page Finally, compares `dplyr` functions to their base R equivalents.
+- https://dplyr.tidyverse.org/articles/base.html
+
+Helpful prompt recipe for `dplyr`: 
+
+---
 ### Summary
 
 The dplyr functionality is powerful for wrangling data. With practice, you will learn to harness and layer the wide variety of functions and verbs in order to conduct numerous operations. My advice is that you start slow and gradually add on more complex combinations.
 
 Also, this notebook has covered just a subset of the *types* of functions/verbs - those that operate on single rows and columns or groups of rows and columns. As you will see in the documentation, there are other functions/verbs that operate on whole data frames or that operate at vector level. We will touch on these later when we discuss data merging (or joining), which refers to combining two datasets with overlapping observations.
 
-Finally, here is a good [reference](https://dplyr.tidyverse.org/articles/base.html) for comparing dplyr functions to their base R equivalents.
+

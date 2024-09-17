@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>DSC 201_602: Class 4</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Kristin Porter" />
+    <meta name="date" content="2024-09-16" />
+    <script src="Class-4_files/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# DSC 201_602: Class 4
+]
+.author[
+### Kristin Porter
+]
+.date[
+### 2024-09-16
+]
+
+---
+
+
+
+&lt;style type="text/css"&gt;
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+&lt;/style&gt;
+
+
+
+## Agenda
+ 1. Housekeeping (5 minutes)
+ 2. Overview of Tidyverse (3 minutes)
+ 3. Manipulating rows and columns with `dplyr` (20 minutes)
+ 4. Using ChatGPT with `dplyr` (5-10 minutes)
+ 5. Data Science Essentials: **Correctly interpreting means** (10-15 minutes)
+
+---
+.centered[
+# Housekeeping
+]
+---
+## Reminder to Start Zoom Recording
+
+---
+## Announcements &amp; Reminders
+
+-   Attendance important &amp; cameras on please
+
+
+-   Six Ways to Get Help &amp; Course Collaboration Leaders
+
+
+-   Moodle &amp; assignments debrief
+
+
+---
+.centered[
+# Introduction to the Tidyverse and dplyr
+]
+
+---
+
+&lt;img src="images/tidyversewebpage.png" alt="Graphic" style="width:600%;"/&gt;
+
+---
+## How to install and load an R package
+
+To install: (only need to do once)
+
+1.    In R Studio, in lower right quadrant, click on packages tab, then "install."
+2.    In R Console, use `install.packages()` function.
+
+We can install just `dplyr` or the main Tidyverse packages by installing `tidyverse`.
+
+To load: (need to do every time you work in your environment - put command in your script)
+-   Use `library()` function.
+
+
+
+---
+## Focus on `dplyr`
+
+`dplyr` is a Tidyverse package for efficiently manipulating datasets in R.
+
+### Why dplyr?
+
+- Simplified syntax
+- Fast and consistent performance
+- Integrates well with other Tidyverse packages
+
+---
+
+## Working with Tibbles
+
+Tibbles are a modern take on data frames, optimized for the Tidyverse.
+
+
+```r
+library(dplyr)
+my_data_frame &lt;- data.frame(x = 1:5, y = letters[1:5], z = c(TRUE,FALSE,TRUE,FALSE,TRUE))
+my_tibble &lt;- as_tibble(my_data_frame)
+print(my_tibble)
+```
+
+```
+## # A tibble: 5 × 3
+##       x y     z    
+##   &lt;int&gt; &lt;chr&gt; &lt;lgl&gt;
+## 1     1 a     TRUE 
+## 2     2 b     FALSE
+## 3     3 c     TRUE 
+## 4     4 d     FALSE
+## 5     5 e     TRUE
+```
+
+---
+## Glimpse of the tibble
+
+
+```r
+glimpse(my_tibble)
+```
+
+```
+## Rows: 5
+## Columns: 3
+## $ x &lt;int&gt; 1, 2, 3, 4, 5
+## $ y &lt;chr&gt; "a", "b", "c", "d", "e"
+## $ z &lt;lgl&gt; TRUE, FALSE, TRUE, FALSE, TRUE
+```
+
+---
+## Basic `dplyr` Functions: Operations on ROWS
+
+### filter()
+
+Filters rows based on a condition.
+
+
+```r
+# Filter tible to rows where x is greater than 3
+filtered_data &lt;- filter(my_tibble, x &gt; 3)
+filtered_data
+```
+
+```
+## # A tibble: 2 × 3
+##       x y     z    
+##   &lt;int&gt; &lt;chr&gt; &lt;lgl&gt;
+## 1     4 d     FALSE
+## 2     5 e     TRUE
+```
+
+---
+
+### arrange()
+
+Reorders rows.
+
+
+```r
+# Arrange rows according to values of x in descending order
+arranged_data &lt;- arrange(my_tibble, desc(x))
+arranged_data
+```
+
+```
+## # A tibble: 5 × 3
+##       x y     z    
+##   &lt;int&gt; &lt;chr&gt; &lt;lgl&gt;
+## 1     5 e     TRUE 
+## 2     4 d     FALSE
+## 3     3 c     TRUE 
+## 4     2 b     FALSE
+## 5     1 a     TRUE
+```
+
+---
+
+### distinct() EXAMPLE 1
+
+
+```r
+# create tibble with duplicates
+my_tibble_dup &lt;- as_tibble(data.frame(id=c(1,1,1,3),x=c(3,3,4,5)))
+print(my_tibble_dup)
+```
+
+```
+## # A tibble: 4 × 2
+##      id     x
+##   &lt;dbl&gt; &lt;dbl&gt;
+## 1     1     3
+## 2     1     3
+## 3     1     4
+## 4     3     5
+```
+
+```r
+# remove rows that are duplicate ACROSS ALL COLUMNS
+distinct_data &lt;- distinct(my_tibble_dup)
+distinct_data
+```
+
+```
+## # A tibble: 3 × 2
+##      id     x
+##   &lt;dbl&gt; &lt;dbl&gt;
+## 1     1     3
+## 2     1     4
+## 3     3     5
+```
+
+---
+
+### distinct() EXAMPLE 2
+
+
+```r
+# create tibble with duplicates
+my_tibble_dup &lt;- as_tibble(data.frame(id=c(1,1,1,3),x=c(3,3,4,5)))
+print(my_tibble_dup)
+```
+
+```
+## # A tibble: 4 × 2
+##      id     x
+##   &lt;dbl&gt; &lt;dbl&gt;
+## 1     1     3
+## 2     1     3
+## 3     1     4
+## 4     3     5
+```
+
+```r
+# REMOVE DUPLICATES OF id, keeping first one if different values for x
+distinct_id &lt;- distinct(my_tibble_dup, id, .keep_all = TRUE)
+distinct_id
+```
+
+```
+## # A tibble: 2 × 2
+##      id     x
+##   &lt;dbl&gt; &lt;dbl&gt;
+## 1     1     3
+## 2     3     5
+```
+
+---
+### slice()
+
+Extract specific rows.
+
+
+```r
+# get rows 1, 2 and 3
+sliced_data1 &lt;- slice(my_tibble,c(1,2,3))
+sliced_data1
+```
+
+```
+## # A tibble: 3 × 3
+##       x y     z    
+##   &lt;int&gt; &lt;chr&gt; &lt;lgl&gt;
+## 1     1 a     TRUE 
+## 2     2 b     FALSE
+## 3     3 c     TRUE
+```
+
+```r
+# get rows with 2 top maximum values of a variable
+sliced_data2 &lt;- slice_max(my_tibble,x,n=2)
+sliced_data2 
+```
+
+```
+## # A tibble: 2 × 3
+##       x y     z    
+##   &lt;int&gt; &lt;chr&gt; &lt;lgl&gt;
+## 1     5 e     TRUE 
+## 2     4 d     FALSE
+```
+
+---
+
+## Basic `dplyr` Functions: Operations on COLUMNS
+
+### select()
+
+Selects columns from a dataset.
+
+
+```r
+# Select columns "x" and "y"
+selected_data &lt;- select(my_tibble, x, y)
+selected_data
+```
+
+```
+## # A tibble: 5 × 2
+##       x y    
+##   &lt;int&gt; &lt;chr&gt;
+## 1     1 a    
+## 2     2 b    
+## 3     3 c    
+## 4     4 d    
+## 5     5 e
+```
+
+---
+
+### mutate()
+
+Adds new columns or transforms existing ones.
+
+
+```r
+# Create a new column called "w" which is equal to "x" times 2
+mutated_data &lt;- mutate(my_tibble, w = x * 2)
+mutated_data
+```
+
+```
+## # A tibble: 5 × 4
+##       x y     z         w
+##   &lt;int&gt; &lt;chr&gt; &lt;lgl&gt; &lt;dbl&gt;
+## 1     1 a     TRUE      2
+## 2     2 b     FALSE     4
+## 3     3 c     TRUE      6
+## 4     4 d     FALSE     8
+## 5     5 e     TRUE     10
+```
+
+---
+
+## Combining Multiple Functions
+
+We can chain multiple operations using the pipe operator `%&gt;%`.
+
+
+```r
+# Revise tibble
+new_data &lt;- my_tibble %&gt;%
+  filter(z) %&gt;%      # Filter to rows where "z" is TRUE
+  select(x, y) %&gt;%   # Select just columns "x" and "y"
+  mutate(double_x = x * 2)  # Create new variable equal to "x" times 2
+new_data
+```
+
+```
+## # A tibble: 3 × 3
+##       x y     double_x
+##   &lt;int&gt; &lt;chr&gt;    &lt;dbl&gt;
+## 1     1 a            2
+## 2     3 c            6
+## 3     5 e           10
+```
+
+---
+
+## Operations on GROUPS of ROWS
+
+### summarize()
+
+Compute summary statistics across rows for designated columns.
+
+
+```r
+# Compute the mean of "x"
+summarized_x &lt;- summarize(my_tibble, mean_x = mean(x))
+
+# Get the mean, median and max of "x"
+summary_stats &lt;- my_tibble %&gt;%
+  summarize(
+    mean_x = mean(x),
+    median_x = median(x),
+    max_x = max(x)
+  )
+summary_stats
+```
+
+```
+## # A tibble: 1 × 3
+##   mean_x median_x max_x
+##    &lt;dbl&gt;    &lt;int&gt; &lt;int&gt;
+## 1      3        3     5
+```
+
+---
+
+### group_by()
+
+Converts a tibble into a grouped tibble where operations are performed "by group."
+
+
+```r
+# Group tibble by whether "z" is true or false
+grouped_data &lt;- group_by(my_tibble, z)
+grouped_data
+```
+
+```
+## # A tibble: 5 × 3
+## # Groups:   z [2]
+##       x y     z    
+##   &lt;int&gt; &lt;chr&gt; &lt;lgl&gt;
+## 1     1 a     TRUE 
+## 2     2 b     FALSE
+## 3     3 c     TRUE 
+## 4     4 d     FALSE
+## 5     5 e     TRUE
+```
+
+---
+### group_by() for other operations: EXAMPLE 1
+
+
+```r
+# Get mean of "x" for each group
+grouped_data_means &lt;- summarize(grouped_data, mean_x = mean(x))
+grouped_data_means
+```
+
+```
+## # A tibble: 2 × 2
+##   z     mean_x
+##   &lt;lgl&gt;  &lt;dbl&gt;
+## 1 FALSE      3
+## 2 TRUE       3
+```
+
+---
+### group_by() for other operations: EXAMPLE 2
+
+
+```r
+# Get mean, median, and max "x" for each group
+grouped_summary_stats &lt;- my_tibble %&gt;%
+    group_by(z) %&gt;%
+    summarize(
+    mean_x = mean(x),
+    median_x = median(x),
+    max_x = max(x)
+  )
+grouped_summary_stats
+```
+
+```
+## # A tibble: 2 × 4
+##   z     mean_x median_x max_x
+##   &lt;lgl&gt;  &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;
+## 1 FALSE      3        3     4
+## 2 TRUE       3        3     5
+```
+
+---
+
+## Operations on GROUPS of COLUMNS
+
+### across()
+
+Apply functions across multiple columns.
+
+Note when you're using across() within mutate() or summarize(), `.x` represents the data from the current column being processed. It's a way to refer to each element of the column(s) you're applying the function to.
+
+
+```r
+transformed_tibble &lt;- my_tibble %&gt;%
+  mutate(
+    across(where(is.logical), as.numeric),
+    across(where(is.character), ~ paste0(.x, "_modified"))
+  )
+transformed_tibble
+```
+
+```
+## # A tibble: 5 × 3
+##       x y              z
+##   &lt;int&gt; &lt;chr&gt;      &lt;dbl&gt;
+## 1     1 a_modified     1
+## 2     2 b_modified     0
+## 3     3 c_modified     1
+## 4     4 d_modified     0
+## 5     5 e_modified     1
+```
+
+---
+
+## Summary
+
+- `dplyr` provides powerful functionality for data wrangling
+- Start slow and gradually add more complex combinations
+- We've covered a subset of dplyr functions/verbs
+- Future topics: data merging (joining)
+
+---
+
+## Recipes for using ChatGPT with `dplyr`
+
+Last week, we looked at 3 use cases: (1) asking for how to do a simple task in base R; (2) explaining what a pasted line (or a few lines) of R code does; and (3) explaining an error after providing a paste of the code and returned error. 
+
+Use cases (2) &amp; (3) can be used for `dplyr` lines of code the same way you used it for base R. 
+
+Today, we'll focus on strategies for building on (1) when using `dplyr`. 
+
+---
+
+## Recipes for using ChatGPT with `dplyr`
+
+Basic recipe: 
+
+-   Recipe: “**I am learning how to use `dpyr` in R. I have a data frame called [my_data_frame]. How do I ... [ENTER TASK].**"
+
+
+-   The challenging part is to be **specific** and **correct** in describing the desired task.
+-   As much as possible, use correct terminology to refer to your R objects (e.g. data frame, rows, columns or variables) and to the operations you want to accomplish (e.g., filter, )
+-   Break down tasks into component steps. Give ChatGPT one step at a time, and gradually build.
+-   It can be helpful to tell it the names of your objects (and row or column names within your data frames). 
+  -   Helps you think it through.
+  -   Then you can easily paste code from ChatGPT into your notebooks. 
+
+---
+
+## Example prompts:
+
+“**I am learning how to use `dpyr` in R. I have a data frame called [my_data_frame]. How do I ... [ENTER TASK].**"
+
+-   Get the rows for which the variable "age" is greater than 18.
+
+-   Select only the columns "name" and "age"?
+
+-   Arrange the rows by the column "test_score" in descending order? 
+
+-   Create a new column called "pass" that is TRUE if "test_score" is greater than 70?
+
+-   Group the data by the variable "teacher" and calculate the mean of "test_score" within each group.
+
+---
+## Check your code!
+
+As we progress in this, class you will gain strategies for checking that your code does what you intend for it to do - whether the code was generated by ChatGPT or not. Here are some first tips: 
+
+-   **Preview the Data:** Use head(my_data_frame) before and after applying `dplyr` functions to see if the changes look as expected. This quick check helps confirm that filtering, selecting, or mutating operations are applied correctly. DON'T PRINT ALL THE DATA! Print a subset - be strategic focusing on the rows and columns that are important - this is where using some techniques from base R can be helpful. 
+
+-   **Verify Results with summary():** Use summary(my_data_frame) or glimpse(my_data_frame) to get a sense of your data's structure and check if new columns or changes match your expectations. This is especially useful after grouping and summarizing operations to ensure the summary statistics are correct.
+
+-   **Cross-Check with Base R Functions:** Use base R functions like mean(), table(), or sum() to double-check the results of your dplyr operations. 
+
+-   **Use dplyr::count(my_data_frame, variable)** to see how many observations are in each group, especially after filtering or grouping.This helps verify that the number of rows matches your expectations after an operation.
+
+-   **Test with a Small Subset of Data:** Before applying your code to the entire data frame, try it on a smaller subset using sample_n() or a manual subset to ensure it works as intended. 
+
+---
+.centered[
+# Data Science Essentials
+]
+
+---
+
+## Data Science Essentials: Can we trust a mean? 
+
+Mean time students in this class spent doing this past homework assignment: 1.2 hours. 
+
+-   What does this tell you?
+-   What questions do you need to ask me to understand how to interpret this? 
+
+---
+
+## Who's included? 
+
+&lt;img src="Class-4_files/figure-html/DSex-1.png" width="100%" /&gt;
+
+---
+## Are there outliers? 
+
+&lt;img src="Class-4_files/figure-html/DSex2-1.png" width="100%" /&gt;
+---
+
+## Comparing Means
+
+What if I told you that students who used ChatGPT for their homework spent a mean of 1.0 hours and students who did not use ChatGPT spent a mean of 1.5 hours on the same homework? 
+
+What questions should you ask me to interpret this? 
+Do you think this could be evidence that using ChatGPT saved students time on doing the homework? 
+
+---
+
+## Questions to ask
+
+To ask the analyst: 
+-   How many students were in each group? (How many used ChatGPT?)
+-   What is the distribution of the data in each group? 
+-   Did everyone respond to the question about ChatGPT use? 
+
+To wonder:
+-   Did students answer the question about ChatGPT use honestly? 
+-   How might students who decided to use ChatGPT be different from students who did not? 
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"slideNumberFormat": "%current%",
+"highlightStyle": "github",
+"highlightLines": true,
+"ratio": "16:9",
+"countIncrementalSlides": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
