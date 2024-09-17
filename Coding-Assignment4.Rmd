@@ -13,6 +13,8 @@ As before, run the following chunk to load `SleepStudy.Rda`. This will load the 
 load("data/SleepStudy.Rda")
 ```
 
+For Questions 1 through 6, I encourage you to NOT use ChatGPT. But do refer to https://dplyr.tidyverse.org/reference/index.html. If you do not know what code to write or if your code does not work, write a comment describing what you are trying to do. Partial credit will be given for descriptions. 
+
 **(1) In the following code chunk, keep the library statement. This loads the `dplyr` package. In this code chunk, convert the data frame to a tibble called `SleepTibble`. Then get a summary description of the data using `glimpse()`. [1 POINT]**
 
 ```{r makeTibble}
