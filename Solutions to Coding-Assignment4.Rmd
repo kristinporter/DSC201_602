@@ -224,22 +224,4 @@ This is the code that ChatGPT provided:
 
 ```{r}
 SleepStudy %>%
-  group_by(Stress) %>%
-  summarize(count = n()) %>%
-  arrange(desc(count))  # Optionally, sort by the count in descending order
-```
-I then followed up with this prompt: Can you provide an alternative way in base R to do the same thing so that I can check my results? 
-
-And I got this: 
-
-```{r}
-table(SleepStudy$Stress)
-```
-
-I found ChatGPT to be very helpful in providing code I could just cut and paste into my code chunks. Te results from the two different approaches match. I feel confident the code is providing the right results. 
-
-
-TOTAL OF 20 POINTS 
-# References
-
-Erickson, T., Wilkerson, M., Finzer, W., & Reichsman, F. (2019). Data Moves. Technology Innovations in Statistics Education, 12(1). http://dx.doi.org/10.5070/T5121038001 Retrieved from https://escholarship.org/uc/item/0mg8m7g6
+  group_by(Str
