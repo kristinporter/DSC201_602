@@ -169,16 +169,20 @@ head(sightings_by_year_state)
 # Let's pick a state to highlight
 highlight_state <- 'CA'
 
-# And plot note, we use the aes of group
+# Plotting the data 'sightings_by_year_state'
 ggplot(sightings_by_year_state, aes(x = Dates.Documented.Year, y = Count, group = Location.State)) +
+  # Create line plot, color by whether the state matches the highlight state
   geom_line(aes(color = Location.State == highlight_state), alpha = 0.7) +
+  # Manually set the colors: gray for FALSE (not highlighted) and red for TRUE (highlighted)
   scale_color_manual(values = c("FALSE" = "gray", "TRUE" = "red")) +
+  # Add labels to the plot for the title, x-axis, and y-axis
   labs(title = "UFO Sightings by Year, Highlighting California",
        x = "Year",
        y = "Number of Sightings") +
+  # Use a minimal theme for a clean visual appearance
   theme_minimal() +
-  theme(legend.position = "none") # Hide the legend
-
+  # Remove the legend to avoid clutter (the highlight is self-explanatory)
+  theme(legend.position = "none")
 
 ```
 

@@ -7,9 +7,9 @@ output: pdf_document # change to if you cannot knit to pdf html_notebook
 
 **Overview:** For this assignment, you will practice working creating data visualizations with R. 
 
-**Directions:** Using one of the data files of your choice, create **two** data visualizations. At least one of the data visualizations should include at least two variables in your data. You may use any of the types of data visualizations we reviewed in class on 3/20, making modifications for a different analysis (different variables) or you can build a different kind of visualization. You may use online galleries for inspiration and for code templates to edit. But you still should not be using generative AI (e.g., ChatGPT, Bing, etc.). I encourage you to use `ggplot2` but you may also experiment with plotting functions in Base R. Experiment with different themes, colors, etc. 
+**Directions:** Using one of the data files of your choice, create **two** data visualizations. At least one of the data visualizations should include at least two variables in your data. You may use any of the types of data visualizations we reviewed in class, making modifications for a different analysis (different variables) or you can build a different kind of visualization. You may use online galleries for inspiration and for code templates to edit. You may also use ChatGPT. I encourage you to use `ggplot2` but you may also experiment with plotting functions in Base R. Experiment with different themes, colors, etc. 
 
-Data sets to choose from (same as before or you may pick a new dataset, as long as it is **not** what you are using for your project):
+Data sets to choose from:
 - [SleepStudy.csv](https://www.rdocumentation.org/packages/Lock5withR/versions/1.2.2/topics/SleepStudy) (used in class previously)
 - colleges.csv (used in class previously)
 - [billionaires.csv](https://corgis-edu.github.io/corgis/csv/billionaires/) (new - available on github)
@@ -28,6 +28,7 @@ For each data visualization:
 - What works well for telling a data story? 
 - What design choices did you make and why? 
 - What might make it better but was too challenging or you were unsure how to proceed? 
+- Did you use a gallery or ChatGPT? How was it helpful or not? 
 
 (3) Describe the results. [3 POINTS FOR EACH DATA VIZ FOR COMPLETION]
 - How do you interpret the plot? What do the data findings tell you? 
