@@ -1,0 +1,47 @@
+---
+title: "Coding Assignment 8: Data Visualizaton in R"
+output: pdf_document # change to if you cannot knit to pdf html_notebook
+---
+
+# Practice with Data Viz in Python
+
+**Overview:** For this assignment, you will practice working creating data visualizations with R. 
+
+**Directions:** Using one of the data files of your choice, create **two** data visualizations. At least one of the data visualizations should include at least two variables in your data. You may use any of the types of data visualizations we reviewed in class, making modifications for a different analysis (different variables) or you can build a different kind of visualization. You may use online galleries for inspiration and for code templates to edit. You may also use ChatGPT. I encourage you to use `ggplot2` but you may also experiment with plotting functions in Base R. Experiment with different themes, colors, etc. 
+
+Data sets to choose from:
+- [SleepStudy.csv](https://www.rdocumentation.org/packages/Lock5withR/versions/1.2.2/topics/SleepStudy) (used in class previously)
+- colleges.csv (used in class previously)
+- [billionaires.csv](https://corgis-edu.github.io/corgis/csv/billionaires/) (new - available on github)
+- [parking_citations.csv](https://corgis-edu.github.io/corgis/csv/parking_citations/) (new - availabe on githib)
+
+Read in the data and load the required libraries. [2 POINTS]
+
+For each data visualization: 
+(1) Make your plot easy to understand. [3 POINTS FOR EACH DATA VIZ]
+- **Provide a good title - include information about your sample or population (who is covered by your dataset)**
+- Label your axes.
+- Ask yourself if a legend is needed or if it works (can you map plot info to the legend easily?).
+- Don't rely on variable names if they are not sufficiently clear.
+
+(2) Discuss the success of your plot. [3 POINTS FOR EACH DATA VIZ FOR COMPLETION]
+- What works well for telling a data story? 
+- What design choices did you make and why? 
+- What might make it better but was too challenging or you were unsure how to proceed? 
+- Did you use a gallery or ChatGPT? How was it helpful or not? 
+
+(3) Describe the results. [3 POINTS FOR EACH DATA VIZ FOR COMPLETION]
+- How do you interpret the plot? What do the data findings tell you? 
+- Why is this particular plot choice helpful for what you want to learn? 
+- What are possible limitations? 
+
+Run all chunks after finalizing and knit to a PDF, HTML or Doc (and convert to a PDF if knitting to HTML or Doc) following the naming convention:
+
+DSC201_602_SP24_codingassignment8_unityID
+
+(For example, DSC201_602_SP24_codingassignment8_keporte2)
+
+
+**Points:** 20 points
+
+**Due:** March 27 at 11:59 PM 
