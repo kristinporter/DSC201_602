@@ -3,7 +3,7 @@ title: "Coding Assignment 8: Data Visualizaton in R"
 output: pdf_document # change to if you cannot knit to pdf html_notebook
 ---
 
-# Practice with Data Viz in Python
+# Practice with Data Viz in R
 
 **Overview:** For this assignment, you will practice working creating data visualizations with R. 
 
