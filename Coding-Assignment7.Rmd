@@ -1,5 +1,5 @@
 ---
-title: "Coding Assignment 8: Data Visualizaton in R"
+title: "Coding Assignment 7: Data Visualizaton in R"
 output: pdf_document # change to if you cannot knit to pdf html_notebook
 ---
 
@@ -37,9 +37,9 @@ For each data visualization:
 
 Run all chunks after finalizing and knit to a PDF, HTML or Doc (and convert to a PDF if knitting to HTML or Doc) following the naming convention:
 
-DSC201_602_SP24_codingassignment8_unityID
+DSC201_602_SP24_codingassignment7_unityID
 
-(For example, DSC201_602_SP24_codingassignment8_keporte2)
+(For example, DSC201_602_SP24_codingassignment7_keporte2)
 
 
 **Points:** 20 points
