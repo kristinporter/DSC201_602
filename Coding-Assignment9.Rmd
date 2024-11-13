@@ -1,0 +1,33 @@
+---
+title: "R Notebook"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+
+For this assignment, you will practice using for-loops and lists with a couple of simple exercises. You may do this assignment in Python or R. For each problem, create a code chunk/cell to implement your solution, using comments to explain your code. Also, use markdown to discuss your success. If you could not get the code to work as intended, explain your thought process and the challenges you encountered.You will receive all 10 points if you attempt each problem, even if you are unable to get the code to work as intended, as long as you provide a thoughtful explanation of your thought process and the challenges you encountered.I encourage you to try without the assistance of ChatGPT. However, if you get stuck, you may use ChatGPT and note how you did. 
+
+**Problem 1 [10 POINTS]:** Create a list with three different types of items - e.g.,  a string, a number, a logical value. (e.g., "apple", 7, TRUE). Use a for loop to iterate through the list and print different messages based on the type of each item:
+If the item is a string, print "This is a string: [item]".
+If it’s a number, print "This is a number: [item]".
+If it’s a logical value, print "This is a logical value: [item]".
+
+
+
+**Problem 2 [10 POINTS]:** Create three vectors (or lists) with three types of words. For example:
+
+A vector or list of nouns (e.g., "cat", "mountain", "pizza").
+A vector or list of adjectives: A list of adjectives (e.g., "fluffy", "tall", "cheesy").
+A vector or list of verbs (e.g., "jumps", "grows", "melts").
+
+Use a for loop to iterate through the vectors and generate three sentences. Each sentence should use one noun, one adjective, and one verb.
+
+For example: "The [adjective] [noun] [verb] quickly."
+
+Hint: The easiest and most readable way to combine strings in Python is to use f-strings, which allow you to embed variables directly into a string (Syntax: f"The {adjective} {noun} {verb} quickly."). In R, you can use the paste() function to combine strings (Syntax: paste("The", adjective, noun, verb, "quickly.")).
+
+For more advanced programmers or for an extra challenge, in each iteration of the loop, randomly select an item from each vector.
+
+
+
